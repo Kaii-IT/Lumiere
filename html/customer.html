@@ -207,32 +207,36 @@
                 <div class="card-header">Change Password</div>
                 <div class="card-body">
                   <form id="change-password-form" novalidate>
+                    
                     <div class="form-group">
                       <label class="form-label" for="cp-current">Current Password</label>
-                      <input type="password" id="cp-current" class="form-control" placeholder="Current password" />
+                      <div style="position:relative;">
+                        <input type="password" id="cp-current" class="form-control" placeholder="Current Password" />
+                        <button type="button" id="cp-current-show-password" class="password-toggle-btn">Show</button>
+                      </div>
                       <p class="validation-msg error" id="cp-current-error"></p>
                     </div>
+
                     <div class="form-row">
-                      <div class="form-group">
-                        <label class="form-label" for="cp-new">New Password</label>
-                        <input type="password" id="cp-new" class="form-control" placeholder="Min. 8 characters" />
-                        <p class="validation-msg error" id="cp-new-error"></p>
-                      </div>
 
                       <div class="form-group">
                         <label class="form-label" for="cp-new">New Password</label>
                         <div style="position:relative;">
                           <input type="password" id="cp-new" class="form-control" placeholder="Min. 8 characters" />
-                          <button type="button" id="cp-show-password" class="password-toggle-btn">Show</button>
+                          <button type="button" id="cp-new-show-password" class="password-toggle-btn">Show</button>
                         </div>
                         <p class="validation-msg error" id="cp-new-error"></p>
                       </div>
 
                       <div class="form-group">
                         <label class="form-label" for="cp-confirm">Confirm New</label>
-                        <input type="password" id="cp-confirm" class="form-control" placeholder="Repeat new password" />
+                        <div style="position:relative;">
+                          <input type="password" id="cp-confirm" class="form-control" placeholder="Repeat new password" />
+                          <button type="button" id="cp-confirm-show-password" class="password-toggle-btn">Show</button>
+                        </div>
                         <p class="validation-msg error" id="cp-confirm-error"></p>
                       </div>
+
                     </div>
                     <button type="button" id="change-password-btn" class="btn btn-primary">Update Password</button>
                   </form>

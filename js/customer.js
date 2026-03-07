@@ -237,11 +237,8 @@ $(document).ready(function () {
     }
   });
 
-  $(".password-toggle-btn").click(function () {
-    let $pw = $("#edit-current-password");
-    let type = $pw.attr("type") === "password" ? "text" : "password";
-    $pw.attr("type", type);
-    $(this).text(type === "password" ? "Show" : "Hide");
+  $(".password-toggle-btn").on("click", function () {
+    showHidePassword($(this).prev(), $(this));
   });
 
   /* Render products */

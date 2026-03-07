@@ -89,18 +89,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#signup-show-password").click(function () {
-    let $pw = $("#signup-password");
-    let type = $pw.attr("type") === "password" ? "text" : "password";
-    $pw.attr("type", type);
-    $(this).text(type === "password" ? "Show" : "Hide");
+  $(".password-toggle-btn").click(function () {
+    showHidePassword($(this).prev(), $(this));
   });
-
-  $("#signup-show-confirm").click(function () {
-    let $pw = $("#signup-confirm-password");
-    let type = $pw.attr("type") === "password" ? "text" : "password";
-    $pw.attr("type", type);
-    $(this).text(type === "password" ? "Show" : "Hide");
-  });
-
 });
