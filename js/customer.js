@@ -81,7 +81,14 @@ function editProfileMode(element) {
     $("#edit-email").val(getLoggedInCustomer().getEmail());
     $("#edit-contact").val(getLoggedInCustomer().getContactNumber());
     $("#edit-address").val(getLoggedInCustomer().getDeliveryAddress());
-    $("#edit-current-password").val("")
+
+    $("#edit-current-password").val("");
+
+    $("#cp-current").val("");
+    $("#cp-new").val("");
+    $("#cp-confirm").val("");
+ 
+    $("#customer-profile-edit-mode .validation-msg").text("");
 
     $("#customer-display-account-details").addClass("hidden");
     $("#customer-profile-edit-mode").removeClass("hidden").hide().slideDown(400);
@@ -149,14 +156,14 @@ $(document).ready(function () {
 
   $("#search-btn").click(function () {
     let query = $("#product-search-input").val().trim().toLowerCase();
-    if (!query) { 
+    if (!query) {
       $("#search-result-message").html("");
       searchResults = [];
       searched = false;
-      
+
       $("#search-results-grid").addClass("hidden");
       $("#customer-product-grid").removeClass("hidden").hide().fadeIn(400);
-      return; 
+      return;
     }
 
     searchProductsByQuery(query);
@@ -241,6 +248,61 @@ $(document).ready(function () {
     showHidePassword($(this).prev(), $(this));
   });
 
+  $("#change-password-btn").click(function () {
+    let customer = getLoggedInCustomer();
+
+    let currentPass = $("#cp-current").val();
+    let newPass = $("#cp-new").val();
+    let confirmNewPass = $("#cp-confirm").val();
+
+    let currentPassError = $("#cp-current-error");
+    let newPassError = $("#cp-new-error");
+    let confirmNewPassError = $("#cp-confirm-error");
+
+    let valid = true;
+
+    if (currentPass !== customer.getPassword()) {
+      currentPassError.text("Password is required to save changes and must match current password.");
+      valid = false;
+    } else {
+      currentPassError.text("");
+    }
+
+    if (!newPass || newPass.length < 8) {
+      newPassError.text("Password is required and must be at least 8 characters.");
+      valid = false;
+    } else {
+      newPassError.text("");
+    }
+
+    if (newPass !== confirmNewPass) {
+      confirmNewPassError.text("Passwords do not match.");
+      valid = false;
+    } else {
+      confirmNewPassError.text("");
+    }
+
+    if (valid) {
+      let customerDB = getCustomerDatabase();
+
+      $(customerDB).each(function (index, account) {
+        if (account.getUsername() === customer.getUsername()) {
+          let customerAccount = customerDB[index];
+          customerAccount.setPassword(newPass);
+          customerDB[index] = customerAccount;
+
+          saveCustomerDatabase(customerDB);
+
+          saveLoggedInCustomer(customerAccount);
+          alert("Account password updated successfully!");
+          $("#customer-edit-profile-btn").click(); // switch back to view mode
+          return false; // break $.each
+        }
+      });
+    }
+
+  });
+
   /* Render products */
   renderCustomerProductCards();
   if (getLoggedInCustomer()) {
@@ -248,13 +310,15 @@ $(document).ready(function () {
   } else {
     location.replace("../html/auth.html");
   }
+
+
 });
 
 function displayUserProfile() {
   let customer = getLoggedInCustomer();
-    $(".customer-name").text(customer.getName());
-    $("#customer-username").text("@" + customer.getUsername());
-    $("#customer-email").text(customer.getEmail());
-    $("#customer-contact-number").text(customer.getContactNumber());
-    $("#customer-delivery-address").text(customer.getDeliveryAddress());
+  $(".customer-name").text(customer.getName());
+  $("#customer-username").text("@" + customer.getUsername());
+  $("#customer-email").text(customer.getEmail());
+  $("#customer-contact-number").text(customer.getContactNumber());
+  $("#customer-delivery-address").text(customer.getDeliveryAddress());
 }
