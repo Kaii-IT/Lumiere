@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE – Shop</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- CUSTOMER PAGE -->
+  <section id="customer-section" class="root-section">
+
+    <nav class="navbar">
+      <div class="container navbar-inner">
+        <a href="#" class="navbar-brand" onclick="return showView('customer-home-view');">LUMI<span>È</span>RE</a>
+        <ul class="navbar-nav">
+          <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('customer-cart-view');">Cart</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('customer-checkout-view');">Checkout</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('customer-orders-view');">Orders</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('customer-profile-view');">Profile</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <nav class="navbar mobile-nav">
+      <ul style="display:flex;justify-content:center;">
+        <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('customer-cart-view');">Cart</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('customer-checkout-view');">Checkout</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('customer-orders-view');">Orders</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('customer-profile-view');">Profile</a></li>
+      </ul>
+    </nav>
+
+    <div class="customer-layout">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Shop</div>
+          <nav class="sidebar-nav">
+            <a href="#" class="active" onclick="return showView('customer-home-view');"><span class="nav-icon"><i
+                  class="fa-solid fa-house"></i></span> Home</a>
+            <a href="#" onclick="return showView('customer-cart-view');"><span class="nav-icon"><i
+                  class="fa-solid fa-cart-shopping"></i></span> Cart</a>
+            <a href="#" onclick="return showView('customer-checkout-view');"><span class="nav-icon"><i
+                  class="fa-solid fa-credit-card"></i></span> Checkout</a>
+            <a href="#" onclick="return showView('customer-orders-view');"><span class="nav-icon"><i
+                  class="fa-solid fa-box-open"></i></span> Orders</a>
+          </nav>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Account</div>
+          <nav class="sidebar-nav">
+            <a href="#" onclick="return showView('customer-profile-view');"><span class="nav-icon"><i
+                  class="fa-solid fa-circle-user"></i></span> Profile</a>
+            <a href="#" id="logoutBtnSidebar"><span class="nav-icon">→</span> Logout</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="customer-content">
+
+        <!-- Customer: Home -->
+        <section id="customer-home-view" class="sub-section">
+          <div class="card" style="margin-bottom:24px;">
+            <div class="card-body">
+              <div
+                style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;">
+                New Season Collection
+              </div>
+              <h1
+                style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:12px;">
+                Discover Pieces Worth Keeping<em style="color:var(--accent);font-style:italic;">.</em>
+              </h1>
+              <p style="margin-bottom:0;">From everyday essentials to statement finds, curated with care.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+            <div class="search-bar" style="flex:1;min-width:240px;">
+              <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input type="search" id="product-search-input" placeholder="Search products…" autocomplete="off" />
+              <button type="button" class="btn btn-sm btn-accent" style="border-radius:100px;padding:6px 18px;"
+                id="search-btn">Search</button>
+              <i class="fa-solid fa-arrow-rotate-left" id="reset-icon"></i>
+            </div>
+
+            <select id="category-filter-dropdown" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="groceries">Groceries</option>
+              <option value="health-beauty">Health &amp; Beauty</option>
+              <option value="home-living">Home &amp; Living</option>
+            </select>
+          </div>
+
+          <p style="margin: 0px 0px 15px 15px;" id="search-result-message"></p>
+
+          <div class="product-grid" id="customer-product-grid"></div>
+          <div class="product-grid hidden" id="search-results-grid"></div>
+        </section>
+
+        <!-- Customer: Profile -->
+        <section id="customer-profile-view" class="sub-section hidden">
+          <h1 class="page-title">My Profile</h1>
+          <p class="page-subtitle">View your account information.</p>
+
+          <div class="profile-layout">
+            <aside class="profile-aside">
+              <div class="card" style="overflow:visible;">
+                <div class="profile-card-top">
+                  <div class="profile-avatar"><i class="fa-regular fa-user"></i></div>
+                  <div class="profile-name customer-name"></div>
+                  <div style="margin-top:10px;">
+                    <span class="profile-role">Customer</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="profile-stat-row">
+                    <div class="profile-stat">
+                      <div class="profile-stat-value" id="total-orders">12</div>
+                      <div class="profile-stat-label">Orders</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+                    <button type="button" class="btn btn-primary btn-block" onclick="editProfileMode(this)"
+                      id="customer-edit-profile-btn">Edit Profile</button>
+                    <button type="button" class="btn btn-outline btn-block" id="logoutBtnProfile">Logout</button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+
+            <section id="customer-display-account-details">
+              <div class="card">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                  <div class="detail-row"><span class="detail-label">Full Name</span><span
+                      class="detail-value customer-name"></span></div>
+                  <div class="detail-row"><span class="detail-label">Username</span><span class="detail-value"
+                      id="customer-username"></span></div>
+                  <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value"
+                      id="customer-email"></span></div>
+                  <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value"
+                      id="customer-contact-number"></span></div>
+                  <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value"
+                      id="customer-delivery-address"></span></div>
+                  <div class="detail-row"><span class="detail-label">Role</span><span
+                      class="detail-value">Customer</span></div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Edit Mode (hidden by default) -->
+            <section class="card hidden" id="customer-profile-edit-mode">
+              <div class="card-header">Edit Profile</div>
+              <div class="card-body">
+                <form id="profile-edit-form" novalidate>
+                  <div class="form-group">
+                    <label class="form-label" for="edit-fullname">Full Name</label>
+                    <input type="text" id="edit-fullname" class="form-control" />
+                    <p class="validation-msg error" id="edit-fullname-error"></p>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="edit-email">Email</label>
+                      <input type="email" id="edit-email" class="form-control" />
+                      <p class="validation-msg error" id="edit-email-error"></p>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="edit-contact">Contact</label>
+                      <input type="tel" id="edit-contact" class="form-control" />
+                      <p class="validation-msg error" id="edit-contact-error"></p>
+                    </div>
+                  </div>
+                  <div class="form-group" id="edit-address-group">
+                    <label class="form-label" for="edit-address">Address</label>
+                    <textarea id="edit-address" class="form-control" rows="2"></textarea>
+                    <p class="validation-msg error" id="edit-address-error"></p>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="edit-current-password">Current Password (to confirm changes)</label>
+                    <div style="position:relative;">
+                      <input type="password" id="edit-current-password" class="form-control"
+                        placeholder="Enter current password" />
+                      <button type="button" id="edit-show-password" class="password-toggle-btn">Show</button>
+                    </div>
+                    <p class="validation-msg error" id="edit-current-password-error"></p>
+                  </div>
+                  <div style="display:flex;gap:12px;margin-top:8px;">
+                    <button type="button" id="save-profile-btn" class="btn btn-accent">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+
+              <!-- Change Password Card -->
+              <div id="change-password-card">
+                <div class="card-header"></div>
+                <div class="card-header">Change Password</div>
+                <div class="card-body">
+                  <form id="change-password-form" novalidate>
+                    <div class="form-group">
+                      <label class="form-label" for="cp-current">Current Password</label>
+                      <input type="password" id="cp-current" class="form-control" placeholder="Current password" />
+                      <p class="validation-msg error" id="cp-current-error"></p>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label class="form-label" for="cp-new">New Password</label>
+                        <input type="password" id="cp-new" class="form-control" placeholder="Min. 8 characters" />
+                        <p class="validation-msg error" id="cp-new-error"></p>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="cp-new">New Password</label>
+                        <div style="position:relative;">
+                          <input type="password" id="cp-new" class="form-control" placeholder="Min. 8 characters" />
+                          <button type="button" id="cp-show-password" class="password-toggle-btn">Show</button>
+                        </div>
+                        <p class="validation-msg error" id="cp-new-error"></p>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="form-label" for="cp-confirm">Confirm New</label>
+                        <input type="password" id="cp-confirm" class="form-control" placeholder="Repeat new password" />
+                        <p class="validation-msg error" id="cp-confirm-error"></p>
+                      </div>
+                    </div>
+                    <button type="button" id="change-password-btn" class="btn btn-primary">Update Password</button>
+                  </form>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- Customer: Cart -->
+        <section id="customer-cart-view" class="sub-section hidden">
+          <h1 class="page-title">Shopping Cart</h1>
+          <p class="page-subtitle">Your selected items will appear here.</p>
+
+          <div class="card">
+            <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
+              Cart Items
+              <button type="button" class="btn btn-ghost btn-sm" style="color:var(--danger);font-size:.8rem;">✕ Clear
+                All</button>
+            </div>
+            <div class="card-body">
+              <div class="cart-item">
+                <div class="cart-item-img">📦</div>
+                <div>
+                  <div class="cart-item-name">ProMax Wireless Earbuds</div>
+                  <div class="cart-item-meta">Active noise cancellation, 30hr battery life, premium carry case.</div>
+                  <div class="qty-control">
+                    <button type="button" class="qty-btn">–</button>
+                    <div class="qty-value">1</div>
+                    <button type="button" class="qty-btn">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-price">₱3,499</div>
+              </div>
+
+              <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-accent" onclick="return showView('customer-checkout-view');">
+                  Proceed to Checkout →
+                </button>
+                <button type="button" class="btn btn-outline" onclick="return showView('customer-home-view');">
+                  ← Continue Shopping
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Customer: Orders -->
+        <section id="customer-orders-view" class="sub-section hidden">
+          <h1 class="page-title">Order History</h1>
+          <p class="page-subtitle">Track and manage your past orders.</p>
+
+          <div class="orders-table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="order-id">#ORD-2025-001</span></td>
+                  <td>View Items</td>
+                  <td style="font-weight:600;color:var(--ink);">₱6,209</td>
+                  <td>Cash on Delivery</td>
+                  <td><span class="status-badge status-completed">● Completed</span></td>
+                </tr>
+                <tr>
+                  <td><span class="order-id">#ORD-2025-002</span></td>
+                  <td>Linen Wrap Dress ×1</td>
+                  <td style="font-weight:600;color:var(--ink);">₱1,800</td>
+                  <td>GCash</td>
+                  <td><span class="status-badge status-processing">⏳ Processing</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Customer: Checkout -->
+        <section id="customer-checkout-view" class="sub-section hidden">
+          <h1 class="page-title">Checkout</h1>
+          <p class="page-subtitle">Review your order and confirm your purchase.</p>
+
+          <div class="checkout-layout">
+            <section>
+              <div class="card">
+                <div class="card-header">Delivery Information</div>
+                <div class="card-body">
+                  <form id="checkout-delivery-form" novalidate>
+                    <div class="form-group">
+                      <label class="form-label" for="checkout-recipient-name">Recipient Name</label>
+                      <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name"
+                        value="Alexandra Vega" />
+                      <p class="validation-msg error" id="checkout-recipient-name-error"></p>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="checkout-delivery-address">Delivery Address</label>
+                      <textarea id="checkout-delivery-address" class="form-control"
+                        rows="2">123 Rosario St., Pasig City, Metro Manila 1600</textarea>
+                      <p class="validation-msg error" id="checkout-delivery-address-error"></p>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label class="form-label" for="checkout-contact">Contact Number</label>
+                        <input type="tel" id="checkout-contact" class="form-control" placeholder="+63 912 345 6789"
+                          value="+63 912 345 6789" />
+                        <p class="validation-msg error" id="checkout-contact-error"></p>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="checkout-delivery-option">Delivery Option</label>
+                        <select id="checkout-delivery-option" class="form-control">
+                          <option value="standard">Standard (3–5 days) — ₱150</option>
+                          <option value="express">Express (1–2 days) — ₱350</option>
+                          <option value="sameday">Same Day — ₱500</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label class="form-label" for="checkout-payment-method">Payment Method</label>
+                        <select id="checkout-payment-method" class="form-control">
+                          <option value="">— Select Payment Method —</option>
+                          <option value="cod">Cash on Delivery (COD)</option>
+                          <option value="gcash">GCash</option>
+                          <option value="maya">Maya</option>
+                          <option value="card">Debit/Credit Card</option>
+                        </select>
+                        <p class="validation-msg error" id="checkout-payment-method-error"></p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </section>
+
+            <aside>
+              <div class="card" style="position:sticky;top:calc(var(--nav-h) + 24px);">
+                <div class="card-header">Order Summary</div>
+                <div class="card-body">
+                  <div class="cart-summary-row"><span>Subtotal</span><span>₱6,059</span></div>
+                  <div class="cart-summary-row"><span>Shipping</span><span>₱150</span></div>
+                  <div class="cart-summary-row total"><span>Total</span><span>₱6,209</span></div>
+
+                  <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-accent btn-lg"
+                      onclick="return showView('customer-orders-view');">
+                      ✓ Confirm Purchase
+                    </button>
+                    <button type="button" class="btn btn-outline btn-lg"
+                      onclick="return showView('customer-cart-view');">
+                      ← Back to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+      </main>
+    </div><!-- /customer-layout -->
+
+    <footer id="app-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 LUMIÈRE. All rights reserved.</span>
+          <span style="color:rgba(255,255,255,.4);font-size:.8rem;">Midterm SPA Prototype</span>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/customer.js"></script>
+</body>
+
+</html>

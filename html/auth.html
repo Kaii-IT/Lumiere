@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE – Sign In</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- AUTHENTICATION PAGE -->
+  <section id="auth-section" class="root-section">
+    <main class="auth-page">
+      <aside class="auth-visual">
+        <div class="auth-visual-bg"></div>
+        <div class="auth-visual-grid"></div>
+        <div class="auth-visual-content">
+          <span class="auth-visual-tag">Est. 2026</span>
+          <h1>Shop with <em>elegance.</em><br />Live with intention.</h1>
+          <p>Curated collections crafted for those who appreciate quality, design, and the finer details of life.</p>
+        </div>
+      </aside>
+
+      <section class="auth-form-section">
+        <div class="auth-form-box">
+          <div class="auth-logo">LUMI<span>È</span>RE</div>
+          <h2 class="auth-title">Welcome back</h2>
+          <p class="auth-subtitle">Sign in to continue your journey.</p>
+
+          <form id="login-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="login-username">Username</label>
+              <input type="text" id="login-username" name="username" class="form-control"
+                placeholder="Enter your username" autocomplete="username" />
+              <p class="validation-msg error" id="login-username-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="login-password">Password</label>
+              <div style="position:relative;">
+                <input type="password" id="login-password" name="password" class="form-control"
+                  placeholder="Enter your password" autocomplete="current-password" />
+                <button type="button" id="login-show-password" class="password-toggle-btn">Show</button>
+              </div>
+              <p class="validation-msg error" id="login-password-error"></p>
+            </div>
+
+            <p style="margin-bottom:12px;" class="validation-msg error" id="account-login-error"></p>
+
+            <div style="display:flex;gap:12px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary btn-lg" id="loginBtn">Login</button>
+            </div>
+          </form>
+
+          <div class="auth-divider">or</div>
+          <div class="auth-link-row">
+            Don't have an account?
+            <a href="createAccount.html" class="auth-link">Create one</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- jQuery (required by auth.js) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>

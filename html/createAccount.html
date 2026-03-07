@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE – Create Account</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+  <!-- CREATE ACCOUNT PAGE -->
+  <section id="create-section" class="root-section">
+    <main class="auth-page">
+      <aside class="auth-visual">
+        <div class="auth-visual-bg"></div>
+        <div class="auth-visual-grid"></div>
+        <div class="auth-visual-content">
+          <span class="auth-visual-tag">New Member</span>
+          <h1>Join the <em>circle</em> of discerning shoppers.</h1>
+          <p>Access exclusive collections, early sales, and personalized recommendations tailored just for you.</p>
+        </div>
+      </aside>
+
+      <section class="auth-form-section">
+        <div class="auth-form-box" style="max-width:500px;">
+          <div class="auth-logo">LUMI<span style="color:var(--accent)">È</span>RE</div>
+          <h2 class="auth-title">Create Account</h2>
+          <p class="auth-subtitle">Tell us who you are to get started.</p>
+
+          <form id="signup-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="signup-fullname">Full Name</label>
+              <input type="text" id="signup-fullname" name="fullname" class="form-control"
+                placeholder="e.g. Alexandra Moreau" autocomplete="name" />
+              <p class="validation-msg error" id="signup-fullname-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-email">Email Address</label>
+              <input type="email" id="signup-email" name="email" class="form-control"
+                placeholder="you@example.com" autocomplete="email" />
+              <p class="validation-msg error" id="signup-email-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-contact">Contact Number</label>
+              <input type="tel" id="signup-contact" name="contact" class="form-control"
+                placeholder="+63 912 345 6789" autocomplete="tel" />
+              <p class="validation-msg error" id="signup-contact-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-address">Delivery Address</label>
+              <textarea id="signup-address" name="address" class="form-control"
+                placeholder="Street, Barangay, City, Province, ZIP" rows="2"></textarea>
+              <p class="validation-msg error" id="signup-address-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="signup-username">Username</label>
+              <input type="text" id="signup-username" name="username" class="form-control"
+                placeholder="Choose a username" autocomplete="username" />
+              <p class="validation-msg error" id="signup-username-error"></p>
+              <p class="form-hint">3–20 characters, letters, numbers and underscores only.</p>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group" style="margin-bottom:0; position:relative;">
+                <label class="form-label" for="signup-password">Password</label>
+                <input type="password" id="signup-password" name="password" class="form-control"
+                  placeholder="Min. 8 characters" autocomplete="new-password" />
+                <button type="button" id="signup-show-password" class="password-toggle-btn">Show</button>
+                <p class="validation-msg error" id="signup-password-error"></p>
+              </div>
+              <div class="form-group" style="margin-bottom:0; position:relative;">
+                <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+                <input type="password" id="signup-confirm-password" name="confirm-password" class="form-control"
+                  placeholder="Repeat password" autocomplete="new-password" />
+                <button type="button" id="signup-show-confirm" class="password-toggle-btn">Show</button>
+                <p class="validation-msg error" id="signup-confirm-password-error"></p>
+              </div>
+            </div>
+
+            <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+              <button type="button" class="btn btn-primary btn-lg" id="createAccountBtn">
+                Create Account
+              </button>
+            </div>
+          </form>
+
+          <div class="auth-link-row">
+            Already have an account?
+            <a href="auth.html" class="auth-link">Log in</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+  <!-- jQuery (required by createAccount.js) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/createAccount.js"></script>
+</body>
+</html>

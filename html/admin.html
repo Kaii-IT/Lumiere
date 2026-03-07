@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE – Admin</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+  <!-- ADMIN PAGE -->
+  <section id="admin-section" class="root-section">
+    <nav class="navbar">
+      <div class="container navbar-inner">
+        <a href="#" class="navbar-brand" onclick="return showView('admin-dashboard-view');">
+          LUMI<span>È</span>RE
+          <span style="font-size:.75rem;font-family:var(--font-body);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;">
+            Admin
+          </span>
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
+          <li><a href="#" class="nav-link"        onclick="return showView('admin-transactions-view');">Transactions</a></li>
+          <li><a href="#" class="nav-link"        onclick="return showView('admin-products-view');">Products</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <nav class="navbar mobile-nav">
+      <ul style="display:flex;justify-content:center;">
+        <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
+        <li><a href="#" class="nav-link"        onclick="return showView('admin-transactions-view');">Transactions</a></li>
+        <li><a href="#" class="nav-link"        onclick="return showView('admin-products-view');">Products</a></li>
+      </ul>
+    </nav>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Overview</div>
+          <nav class="sidebar-nav">
+            <a href="#" class="active" onclick="return showView('admin-dashboard-view');">
+              <span class="nav-icon"><i class="fa-solid fa-chart-bar"></i></span> Dashboard
+            </a>
+            <a href="#" onclick="return showView('admin-transactions-view');">
+              <span class="nav-icon"><i class="fa-solid fa-credit-card"></i></span> Transactions
+            </a>
+            <a href="#" onclick="return showView('admin-products-view');">
+              <span class="nav-icon"><i class="fa-solid fa-apple-whole"></i></span> Products
+            </a>
+          </nav>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Account</div>
+          <nav class="sidebar-nav">
+            <a href="#" id="logoutBtnSidebar"><span class="nav-icon">→</span> Logout</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="dashboard-content">
+        <!-- Admin: Dashboard -->
+        <section id="admin-dashboard-view" class="sub-section">
+          <h1 class="page-title">Admin Dashboard</h1>
+          <p class="page-subtitle">Welcome back. Here's what's happening with your store.</p>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-store" style="color:#A8834A;"></i></div>
+              <div class="stat-value" id="total-products"></div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-icon"><i class="fa-solid fa-cash-register" style="color:rgb(6,62,172);"></i></div>
+              <div class="stat-value" id="total-orders">57</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon"><i class="fa-solid fa-coins" style="color:rgb(6,172,25);"></i></div>
+              <div class="stat-value">₱84k</div>
+              <div class="stat-label">Revenue (Month)</div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-icon"><i class="fa-solid fa-backward" style="color:rgb(172,6,6);"></i></div>
+              <div class="stat-value">3</div>
+              <div class="stat-label">Pending Returns</div>
+            </div>
+          </div>
+
+          <!-- Add New Product Form -->
+          <section style="margin-bottom:48px;">
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+              <span>Add New Product</span>
+              <span style="font-family:var(--font-body);font-size:.75rem;background:var(--accent-pale);color:var(--accent-dark);padding:4px 12px;border-radius:100px;font-weight:500;letter-spacing:.04em;">
+                Catalogue
+              </span>
+            </h2>
+
+            <div class="card">
+              <div class="card-body">
+                <form id="add-product-form" novalidate>
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="product-category">Category</label>
+                      <select id="product-category" class="form-control">
+                        <option value="">— Select Category —</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="groceries">Groceries</option>
+                        <option value="health-beauty">Health &amp; Beauty</option>
+                        <option value="home-living">Home &amp; Living</option>
+                      </select>
+                      <p class="validation-msg error" id="product-category-error"></p>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="product-name">Product Name</label>
+                      <input type="text" id="product-name" class="form-control" placeholder="e.g. Wireless Headphones" />
+                      <p class="validation-msg error" id="product-name-error"></p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="product-description">Description</label>
+                    <textarea id="product-description" class="form-control" placeholder="Describe the product…" rows="3"></textarea>
+                    <p class="validation-msg error" id="product-description-error"></p>
+                  </div>
+
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label class="form-label" for="product-quantity">Quantity in Stock</label>
+                      <input type="number" id="product-quantity" class="form-control" placeholder="0" min="0" step="1" />
+                      <p class="validation-msg error" id="product-quantity-error"></p>
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label" for="product-price">Price (₱)</label>
+                      <input type="number" id="product-price" class="form-control" placeholder="0.00" min="0" step="0.01" />
+                      <p class="validation-msg error" id="product-price-error"></p>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label" for="product-image-url">Image Hosting URL</label>
+                    <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
+                    <input type="text" id="product-image-url" class="form-control" placeholder="e.g. https://example.com/image.jpg" />
+                  </div>
+
+                  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+                    <button type="button" class="btn btn-accent btn-lg" id="addProductBtn">＋ Add Product</button>
+                    <button type="reset" class="btn btn-ghost" id="clearAddProductForm">Clear Form</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <!-- Admin: Product Catalogue -->
+        <section id="admin-products-view" class="sub-section hidden">
+          <h1 class="page-title">Product Catalogue</h1>
+          <p class="page-subtitle">Manage your products conveniently.</p>
+
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;">
+            <div class="search-bar" style="flex:1;min-width:240px;">
+              <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input type="search" id="admin-product-search-input" placeholder="Search products…" autocomplete="off" />
+              <button type="button" class="btn btn-sm btn-accent" style="border-radius:100px;padding:6px 18px;">Search</button>
+            </div>
+            <select id="admin-category-filter-dropdown" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="groceries">Groceries</option>
+              <option value="health-beauty">Health &amp; Beauty</option>
+              <option value="home-living">Home &amp; Living</option>
+            </select>
+          </div>
+
+          <div id="admin-product-grid"
+            style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:24px;">
+          </div>
+        </section>
+
+        <!-- Admin: Transactions -->
+        <section id="admin-transactions-view" class="sub-section hidden">
+          <h1 class="page-title">Transaction Processing</h1>
+          <p class="page-subtitle">Handle purchases, process returns, and manage payment status.</p>
+
+          <section class="transaction-section">
+            <h3><span class="section-icon"><i class="fa-solid fa-user-gear"></i></span> Process Transaction</h3>
+            <form id="process-transaction-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="txn-order-id-input">Order ID</label>
+                  <input type="text" id="txn-order-id-input" class="form-control" placeholder="e.g. ORD-2025-003" />
+                  <p class="validation-msg error" id="txn-order-id-error"></p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="txn-action-select">Action</label>
+                  <select id="txn-action-select" class="form-control">
+                    <option value="default">— Select Action —</option>
+                    <option value="confirm-payment">Confirm Payment</option>
+                    <option value="process-shipment">Process Shipment</option>
+                    <option value="mark-delivered">Mark as Delivered</option>
+                    <option value="process-return">Process Return</option>
+                    <option value="issue-refund">Issue Refund</option>
+                    <option value="cancel-order">Cancel Order</option>
+                  </select>
+                  <p class="validation-msg error" id="txn-action-error"></p>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-lg">Execute Action</button>
+                <button type="reset" class="btn btn-ghost">Clear</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="transaction-section">
+            <h3><span class="section-icon">📋</span> Transaction Log</h3>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Order</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><button class="order-id btn btn-outline" onclick="return false;">TXN-0001</button></td>
+                    <td>ORD #1 - Abro19</td>
+                    <td style="font-weight:600;">₱6,209</td>
+                    <td>Cash on Delivery</td>
+                    <td><span class="status-badge status-completed">● Completed</span></td>
+                  </tr>
+                  <tr>
+                    <td><button class="order-id btn btn-outline" onclick="return false;">TXN-0002</button></td>
+                    <td>Abro/ORD-1</td>
+                    <td>Abiad123</td>
+                    <td style="font-weight:600;">₱1,800</td>
+                    <td>GCash</td>
+                    <td><span class="status-badge status-processing">⏳ Processing</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+      </main>
+    </div><!-- /dashboard-layout -->
+
+    <footer id="app-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2025 LUMIÈRE. All rights reserved.</span>
+          <span style="color:rgba(255,255,255,.4);font-size:.8rem;">Midterm SPA Prototype</span>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- Update Product Modal -->
+  <section class="hidden modal" id="admin-update-product-section">
+    <button type="button" class="close-btn" id="closeUpdateModal">✕ Close</button>
+    <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;display:flex;align-items:center;gap:12px;">
+      <span>Update Product</span>
+    </h2>
+    <div class="card">
+      <div class="card-body">
+        <form id="update-product-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="update-product-category">Category</label>
+              <select id="update-product-category" class="form-control">
+                <option value="">— Select Category —</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="groceries">Groceries</option>
+                <option value="health-beauty">Health &amp; Beauty</option>
+                <option value="home-living">Home &amp; Living</option>
+              </select>
+              <p class="validation-msg error" id="update-product-category-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="update-product-name">Product Name</label>
+              <input type="text" id="update-product-name" class="form-control" placeholder="e.g. Wireless Headphones" />
+              <p class="validation-msg error" id="update-product-name-error"></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="update-product-description">Description</label>
+            <textarea id="update-product-description" class="form-control" placeholder="Describe the product…" rows="3"></textarea>
+            <p class="validation-msg error" id="update-product-description-error"></p>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="update-product-quantity">Quantity in Stock</label>
+              <input type="number" id="update-product-quantity" class="form-control" placeholder="0" min="0" step="1" />
+              <p class="validation-msg error" id="update-product-quantity-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="update-product-price">Price (₱)</label>
+              <input type="number" id="update-product-price" class="form-control" placeholder="0.00" min="0" step="0.01" />
+              <p class="validation-msg error" id="update-product-price-error"></p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="update-product-image-url">Image Hosting URL</label>
+            <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
+            <input type="text" id="update-product-image-url" class="form-control" placeholder="e.g. https://example.com/image.jpg" />
+          </div>
+
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-accent btn-lg" id="updateProductBtn" data-id="">＋ Update Product</button>
+            <button type="reset" class="btn btn-ghost">Clear Form</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop hidden"></div>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/js/shared.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>
