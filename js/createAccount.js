@@ -78,7 +78,7 @@ $(document).ready(function () {
 
     if (checkCreateAccountFields(fullName, email, contactNumber, deliveryAddress,
                                   username, password, confirmPassword)) {
-      let newAccount = new Account(fullName, email, contactNumber, deliveryAddress, username, password);
+      let newAccount = new Account(fullName, email, contactNumber, deliveryAddress, username, password, []);
       let customerDB = getCustomerDatabase();
       customerDB.push(newAccount);
       saveCustomerDatabase(customerDB);

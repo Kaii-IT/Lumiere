@@ -37,18 +37,28 @@ class Profile {
 }
 
 class Account extends Profile {
-  #username; #password;
+  #username; #password; #cart;
 
-  constructor(name, email, contactNumber, deliveryAddress, username, password) {
+  constructor(name, email, contactNumber, deliveryAddress, username, password, cart) {
     super(name, email, contactNumber, deliveryAddress);
     this.#username = username;
     this.#password = password;
+    this.#cart = cart;
   }
 
   getUsername() { return this.#username; }
   getPassword() { return this.#password; }
+  
+  getCart() { 
+    return this.#cart.map(obj => 
+      new Product(obj.productId, obj.category, obj.productName, obj.productName.description, 
+                  obj.quantityInStock, obj.price, obj.imageUrl)
+    );
+   }
+
   setUsername(username) { this.#username = username; }
   setPassword(password) { this.#password = password; }
+  setCart(cart) { this.#cart = cart; }
 
   toJSON() {
     return {
@@ -57,7 +67,8 @@ class Account extends Profile {
       contactNumber: this.getContactNumber(),
       deliveryAddress: this.getDeliveryAddress(),
       username: this.#username,
-      password: this.#password
+      password: this.#password,
+      cart: this.#cart
     };
   }
 }
@@ -110,7 +121,7 @@ class Product {
 function getCustomerDatabase() {
   let raw = JSON.parse(localStorage.getItem("customerDatabase"));
   return raw.map(obj =>
-    new Account(obj.name, obj.email, obj.contactNumber, obj.deliveryAddress, obj.username, obj.password)
+    new Account(obj.name, obj.email, obj.contactNumber, obj.deliveryAddress, obj.username, obj.password, obj.cart)
   );
 }
 function saveCustomerDatabase(db) {
@@ -137,8 +148,8 @@ function saveTotalProducts(total) { localStorage.setItem("totalProducts", String
 function getLoggedInCustomer() {
   let raw = JSON.parse(localStorage.getItem("loggedInCustomer"));
   if (raw === null) return null;
-  return new Account(raw.name, raw.email, raw.contactNumber, raw.deliveryAddress, raw.username, raw.password);
-}
+  return new Account(raw.name, raw.email, raw.contactNumber, raw.deliveryAddress, raw.username, raw.password, raw.cart);
+} 
 
 function saveLoggedInCustomer(customer) {
   localStorage.setItem("loggedInCustomer", JSON.stringify(customer));
