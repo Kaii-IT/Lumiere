@@ -171,9 +171,11 @@ function getImagePlaceholderByCategory(category) {
   return ",";
 }
 
-function showHidePassword(id) {
-  let $pw = $("#" + id);
-  
+function showHidePassword(field, button) {
+  let type = field.attr("type") === "password" ? "text" : "password";
+  field.attr("type", type);
+  let label = type === "password" ? "Show" : "Hide";
+  button.text(label);
 }
 
 /* ---- BOOTSTRAP: set up storage keys once on first ever visit ---- */

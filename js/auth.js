@@ -57,11 +57,8 @@ $(document).ready(function () {
   });
 
   /* Toggle password visibility */
-  $("#login-show-password").click(function () {
-    let $pw = $("#login-password");
-    let type = $pw.attr("type") === "password" ? "text" : "password";
-    $pw.attr("type", type);
-    $(this).text(type === "password" ? "Show" : "Hide");
+  $(".password-toggle-btn").click(function () {
+    showHidePassword($(this).prev(), $(this));
   });
 
   if (getIsAdminLoggedIn()) {
