@@ -1543,6 +1543,21 @@ p {
   font-size: 1.3rem;
 }
 
+.cart-selected-total {
+  font-size: 1rem;
+  color: var(--ink-light);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.cart-selected-amount {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-left: 4px;
+}
+
 /* ─── Order History ─────────────────────────────── */
 .orders-table-wrap {
   overflow-x: auto;

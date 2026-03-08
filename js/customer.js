@@ -321,4 +321,8 @@ function displayUserProfile() {
   $("#customer-email").text(customer.getEmail());
   $("#customer-contact-number").text(customer.getContactNumber());
   $("#customer-delivery-address").text(customer.getDeliveryAddress());
+
+  $("#checkout-recipient-name").val(customer.getName());
+  $("#checkout-delivery-address").val(customer.getDeliveryAddress());
+  $("#checkout-contact").val(customer.getContactNumber());
 }
