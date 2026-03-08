@@ -19,10 +19,10 @@
         <a href="#" class="navbar-brand" onclick="return showView('customer-home-view');">LUMI<span>È</span>RE</a>
         <ul class="navbar-nav">
           <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('customer-cart-view');">Cart</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('customer-checkout-view');">Checkout</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('customer-orders-view');">Orders</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('customer-profile-view');">Profile</a></li>
+          <li><a href="#" class="nav-link"         onclick="return showView('customer-cart-view');">Cart</a></li>
+          <li><a href="#" class="nav-link"         onclick="return showView('customer-checkout-view');">Checkout</a></li>
+          <li><a href="#" class="nav-link"         onclick="return showView('customer-orders-view');">Orders</a></li>
+          <li><a href="#" class="nav-link"         onclick="return showView('customer-profile-view');">Profile</a></li>
         </ul>
         <div class="navbar-actions">
           <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Logout</button>
@@ -33,10 +33,10 @@
     <nav class="navbar mobile-nav">
       <ul style="display:flex;justify-content:center;">
         <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('customer-cart-view');">Cart</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('customer-checkout-view');">Checkout</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('customer-orders-view');">Orders</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('customer-profile-view');">Profile</a></li>
+        <li><a href="#" class="nav-link"         onclick="return showView('customer-cart-view');">Cart</a></li>
+        <li><a href="#" class="nav-link"         onclick="return showView('customer-checkout-view');">Checkout</a></li>
+        <li><a href="#" class="nav-link"         onclick="return showView('customer-orders-view');">Orders</a></li>
+        <li><a href="#" class="nav-link"         onclick="return showView('customer-profile-view');">Profile</a></li>
       </ul>
     </nav>
 
@@ -45,38 +45,43 @@
         <div class="sidebar-section">
           <div class="sidebar-label">Shop</div>
           <nav class="sidebar-nav">
-            <a href="#" class="active" onclick="return showView('customer-home-view');"><span class="nav-icon"><i
-                  class="fa-solid fa-house"></i></span> Home</a>
-            <a href="#" onclick="return showView('customer-cart-view');"><span class="nav-icon"><i
-                  class="fa-solid fa-cart-shopping"></i></span> Cart</a>
-            <a href="#" onclick="return showView('customer-checkout-view');"><span class="nav-icon"><i
-                  class="fa-solid fa-credit-card"></i></span> Checkout</a>
-            <a href="#" onclick="return showView('customer-orders-view');"><span class="nav-icon"><i
-                  class="fa-solid fa-box-open"></i></span> Orders</a>
+            <a href="#" class="active" onclick="return showView('customer-home-view');">
+              <span class="nav-icon"><i class="fa-solid fa-house"></i></span> Home
+            </a>
+            <a href="#" onclick="return showView('customer-cart-view');">
+              <span class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></span> Cart
+            </a>
+            <a href="#" onclick="return showView('customer-checkout-view');">
+              <span class="nav-icon"><i class="fa-solid fa-credit-card"></i></span> Checkout
+            </a>
+            <a href="#" onclick="return showView('customer-orders-view');">
+              <span class="nav-icon"><i class="fa-solid fa-box-open"></i></span> Orders
+            </a>
           </nav>
         </div>
         <div class="sidebar-section">
           <div class="sidebar-label">Account</div>
           <nav class="sidebar-nav">
-            <a href="#" onclick="return showView('customer-profile-view');"><span class="nav-icon"><i
-                  class="fa-solid fa-circle-user"></i></span> Profile</a>
-            <a href="#" id="logoutBtnSidebar"><span class="nav-icon">→</span> Logout</a>
+            <a href="#" onclick="return showView('customer-profile-view');">
+              <span class="nav-icon"><i class="fa-solid fa-circle-user"></i></span> Profile
+            </a>
+            <a href="#" id="logoutBtnSidebar">
+              <span class="nav-icon">→</span> Logout
+            </a>
           </nav>
         </div>
       </aside>
 
       <main class="customer-content">
 
-        <!-- Customer: Home -->
+        <!-- ===================== HOME ===================== -->
         <section id="customer-home-view" class="sub-section">
           <div class="card" style="margin-bottom:24px;">
             <div class="card-body">
-              <div
-                style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;">
+              <div style="font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;margin-bottom:12px;">
                 New Season Collection
               </div>
-              <h1
-                style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:12px;">
+              <h1 style="font-family:var(--font-display);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;line-height:1.1;margin-bottom:12px;">
                 Discover Pieces Worth Keeping<em style="color:var(--accent);font-style:italic;">.</em>
               </h1>
               <p style="margin-bottom:0;">From everyday essentials to statement finds, curated with care.</p>
@@ -87,8 +92,9 @@
             <div class="search-bar" style="flex:1;min-width:240px;">
               <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
               <input type="search" id="product-search-input" placeholder="Search products…" autocomplete="off" />
-              <button type="button" class="btn btn-sm btn-accent" style="border-radius:100px;padding:6px 18px;"
-                id="search-btn">Search</button>
+              <button type="button" class="btn btn-sm btn-accent" style="border-radius:100px;padding:6px 18px;" id="search-btn">
+                Search
+              </button>
               <i class="fa-solid fa-arrow-rotate-left" id="reset-icon"></i>
             </div>
 
@@ -102,13 +108,13 @@
             </select>
           </div>
 
-          <p style="margin: 0px 0px 15px 15px;" id="search-result-message"></p>
+          <p style="margin:0 0 15px 15px;" id="search-result-message"></p>
 
           <div class="product-grid" id="customer-product-grid"></div>
           <div class="product-grid hidden" id="search-results-grid"></div>
         </section>
 
-        <!-- Customer: Profile -->
+        <!-- ===================== PROFILE ===================== -->
         <section id="customer-profile-view" class="sub-section hidden">
           <h1 class="page-title">My Profile</h1>
           <p class="page-subtitle">View your account information.</p>
@@ -131,9 +137,13 @@
                     </div>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
-                    <button type="button" class="btn btn-primary btn-block" onclick="editProfileMode(this)"
-                      id="customer-edit-profile-btn">Edit Profile</button>
-                    <button type="button" class="btn btn-outline btn-block" id="logoutBtnProfile">Logout</button>
+                    <button type="button" class="btn btn-primary btn-block"
+                            onclick="editProfileMode(this)" id="customer-edit-profile-btn">
+                      Edit Profile
+                    </button>
+                    <button type="button" class="btn btn-outline btn-block" id="logoutBtnProfile">
+                      Logout
+                    </button>
                   </div>
                 </div>
               </div>
@@ -143,18 +153,12 @@
               <div class="card">
                 <div class="card-header">Account Details</div>
                 <div class="card-body">
-                  <div class="detail-row"><span class="detail-label">Full Name</span><span
-                      class="detail-value customer-name"></span></div>
-                  <div class="detail-row"><span class="detail-label">Username</span><span class="detail-value"
-                      id="customer-username"></span></div>
-                  <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value"
-                      id="customer-email"></span></div>
-                  <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value"
-                      id="customer-contact-number"></span></div>
-                  <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value"
-                      id="customer-delivery-address"></span></div>
-                  <div class="detail-row"><span class="detail-label">Role</span><span
-                      class="detail-value">Customer</span></div>
+                  <div class="detail-row"><span class="detail-label">Full Name</span><span class="detail-value customer-name"></span></div>
+                  <div class="detail-row"><span class="detail-label">Username</span><span class="detail-value" id="customer-username"></span></div>
+                  <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value" id="customer-email"></span></div>
+                  <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value" id="customer-contact-number"></span></div>
+                  <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value" id="customer-delivery-address"></span></div>
+                  <div class="detail-row"><span class="detail-label">Role</span><span class="detail-value">Customer</span></div>
                 </div>
               </div>
             </section>
@@ -189,8 +193,7 @@
                   <div class="form-group">
                     <label class="form-label" for="edit-current-password">Current Password (to confirm changes)</label>
                     <div style="position:relative;">
-                      <input type="password" id="edit-current-password" class="form-control"
-                        placeholder="Enter current password" />
+                      <input type="password" id="edit-current-password" class="form-control" placeholder="Enter current password" />
                       <button type="button" id="edit-show-password" class="password-toggle-btn">Show</button>
                     </div>
                     <p class="validation-msg error" id="edit-current-password-error"></p>
@@ -207,7 +210,6 @@
                 <div class="card-header">Change Password</div>
                 <div class="card-body">
                   <form id="change-password-form" novalidate>
-
                     <div class="form-group">
                       <label class="form-label" for="cp-current">Current Password</label>
                       <div style="position:relative;">
@@ -216,9 +218,7 @@
                       </div>
                       <p class="validation-msg error" id="cp-current-error"></p>
                     </div>
-
                     <div class="form-row">
-
                       <div class="form-group">
                         <label class="form-label" for="cp-new">New Password</label>
                         <div style="position:relative;">
@@ -227,17 +227,14 @@
                         </div>
                         <p class="validation-msg error" id="cp-new-error"></p>
                       </div>
-
                       <div class="form-group">
                         <label class="form-label" for="cp-confirm">Confirm New</label>
                         <div style="position:relative;">
-                          <input type="password" id="cp-confirm" class="form-control"
-                            placeholder="Repeat new password" />
+                          <input type="password" id="cp-confirm" class="form-control" placeholder="Repeat new password" />
                           <button type="button" id="cp-confirm-show-password" class="password-toggle-btn">Show</button>
                         </div>
                         <p class="validation-msg error" id="cp-confirm-error"></p>
                       </div>
-
                     </div>
                     <button type="button" id="change-password-btn" class="btn btn-primary">Update Password</button>
                   </form>
@@ -247,7 +244,7 @@
           </div>
         </section>
 
-        <!-- Customer: Cart -->
+        <!-- ===================== CART ===================== -->
         <section id="customer-cart-view" class="sub-section hidden">
           <h1 class="page-title">Shopping Cart</h1>
           <p class="page-subtitle">Your selected items will appear here.</p>
@@ -255,46 +252,20 @@
           <div class="card">
             <div class="card-header" style="display:flex;justify-content:space-between;align-items:center;">
               Cart Items
-              <button type="button" class="btn btn-ghost btn-sm" style="color:var(--danger);font-size:.8rem;">✕ Clear
-                All</button>
+              <!-- NOTE: class="cart-clear-all-btn" is required for the JS handler -->
+              <button type="button" class="btn btn-ghost btn-sm cart-clear-all-btn"
+                      style="color:var(--danger);font-size:.8rem;">
+                ✕ Clear All
+              </button>
             </div>
+
+            <!-- Cart items are injected here by renderCartItems() -->
+            <div id="cart-items" class="card-body"></div>
+
             <div class="card-body">
-              <div class="cart-item">
-                <input type="checkbox" class="cart-item-checkbox" />
-                <div class="cart-item-img">📦</div>
-                <div class="cart-item-details">
-                  <div class="cart-item-name">ProMax Wireless Earbuds</div>
-                  <div class="cart-item-meta">Active noise cancellation, 30hr battery life, premium carry case.</div>
-                  <div class="qty-control">
-                    <button type="button" class="qty-btn">–</button>
-                    <div class="qty-value">1</div>
-                    <button type="button" class="qty-btn">+</button>
-                  </div>
-                </div>
-                <div class="cart-item-price">₱3,499</div>
-                <button type="button" class="cart-item-remove-btn">✕</button>
-              </div>
-
-              <div class="cart-item">
-                <input type="checkbox" class="cart-item-checkbox" />
-                <div class="cart-item-img">📦</div>
-                <div class="cart-item-details">
-                  <div class="cart-item-name">ProMax Wireless Earbuds</div>
-                  <div class="cart-item-meta">Active noise cancellation, 30hr battery life, premium carry case.</div>
-                  <div class="qty-control">
-                    <button type="button" class="qty-btn">–</button>
-                    <div class="qty-value">1</div>
-                    <button type="button" class="qty-btn">+</button>
-                  </div>
-                </div>
-                <div class="cart-item-price">₱3,499</div>
-                <button type="button" class="cart-item-remove-btn">✕</button>
-              </div>
-
-              <div
-                style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+              <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
                 <div class="cart-selected-total">
-                  Total: <span class="cart-selected-amount">₱0</span>
+                  Total (checked): <span class="cart-selected-amount">₱0</span>
                 </div>
                 <div style="display:flex;gap:12px;flex-wrap:wrap;">
                   <button type="button" class="btn btn-accent" onclick="return showView('customer-checkout-view');">
@@ -309,7 +280,7 @@
           </div>
         </section>
 
-        <!-- Customer: Orders -->
+        <!-- ===================== ORDERS ===================== -->
         <section id="customer-orders-view" class="sub-section hidden">
           <h1 class="page-title">Order History</h1>
           <p class="page-subtitle">Track and manage your past orders.</p>
@@ -345,7 +316,7 @@
           </div>
         </section>
 
-        <!-- Customer: Checkout -->
+        <!-- ===================== CHECKOUT ===================== -->
         <section id="customer-checkout-view" class="sub-section hidden">
           <h1 class="page-title">Checkout</h1>
           <p class="page-subtitle">Review your order and confirm your purchase.</p>
@@ -358,21 +329,18 @@
                   <form id="checkout-delivery-form" novalidate>
                     <div class="form-group">
                       <label class="form-label" for="checkout-recipient-name">Recipient Name</label>
-                      <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name"
-                        value="Omar Abro" disabled />
+                      <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name" disabled />
                       <p class="validation-msg error" id="checkout-recipient-name-error"></p>
                     </div>
                     <div class="form-group">
                       <label class="form-label" for="checkout-delivery-address">Delivery Address</label>
-                      <textarea id="checkout-delivery-address" class="form-control" rows="2"
-                        disabled>123 Rosario St., Pasig City, Metro Manila 1600</textarea>
+                      <textarea id="checkout-delivery-address" class="form-control" rows="2" disabled></textarea>
                       <p class="validation-msg error" id="checkout-delivery-address-error"></p>
                     </div>
                     <div class="form-row">
                       <div class="form-group">
                         <label class="form-label" for="checkout-contact">Contact Number</label>
-                        <input type="tel" id="checkout-contact" class="form-control" placeholder="+63 912 345 6789"
-                          value="+63 912 345 6789" disabled />
+                        <input type="tel" id="checkout-contact" class="form-control" placeholder="+63 912 345 6789" disabled />
                         <p class="validation-msg error" id="checkout-contact-error"></p>
                       </div>
                       <div class="form-group">
@@ -410,11 +378,11 @@
 
                   <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
                     <button type="button" class="btn btn-accent btn-lg"
-                      onclick="return showView('customer-orders-view');">
+                            onclick="return showView('customer-orders-view');">
                       ✓ Confirm Purchase
                     </button>
                     <button type="button" class="btn btn-outline btn-lg"
-                      onclick="return showView('customer-cart-view');">
+                            onclick="return showView('customer-cart-view');">
                       ← Back to Cart
                     </button>
                   </div>

@@ -12,6 +12,7 @@ function showView(viewId) {
 }
 
 /* ---- PRODUCT HELPERS ---- */
+
 function generateAdminProductCard(product, index) {
   if (!product) return "";
   let id = product.getProductId(), category = product.getCategory();
@@ -58,9 +59,70 @@ function checkProductFields(element, category, productName, description, quantit
   return returnValue;
 }
 
+/* ---- CART CLEANUP ----
+   When a product is updated or deleted by admin, we loop through every customer's
+   cart in customerDatabase and either update the stock value or remove the item entirely.
+   We read/write the raw JSON array directly to avoid getCustomerDatabase() crashing on null entries.
+*/
+
+function cleanupCartsForProduct(productId, newQuantity) {
+  // newQuantity = 0 means deleted — remove from all carts
+  // newQuantity > 0 means updated — update quantityInStock in all carts
+
+  let rawDB = JSON.parse(localStorage.getItem("customerDatabase"));
+  if (!rawDB) return;
+
+  $.each(rawDB, function (i, obj) {
+    if (!obj || !obj.cart) return;
+
+    let updatedCart = [];
+
+    $.each(obj.cart, function (j, cartItem) {
+      if (cartItem.productId !== productId) {
+        // not this product, keep it as is
+        updatedCart.push(cartItem);
+      } else if (newQuantity > 0) {
+        // product still exists, update its stock and cap qty if needed
+        cartItem.quantityInStock = newQuantity;
+        if (cartItem.qty > newQuantity) {
+          cartItem.qty = newQuantity;
+        }
+        updatedCart.push(cartItem);
+      }
+      // if newQuantity is 0, we just skip it — effectively removing it
+    });
+
+    rawDB[i].cart = updatedCart;
+  });
+
+  localStorage.setItem("customerDatabase", JSON.stringify(rawDB));
+
+  // if the currently logged-in customer is affected, update their session too
+  let loggedIn = JSON.parse(localStorage.getItem("loggedInCustomer"));
+  if (!loggedIn || !loggedIn.cart) return;
+
+  let updatedLoggedInCart = [];
+
+  $.each(loggedIn.cart, function (j, cartItem) {
+    if (cartItem.productId !== productId) {
+      updatedLoggedInCart.push(cartItem);
+    } else if (newQuantity > 0) {
+      cartItem.quantityInStock = newQuantity;
+      if (cartItem.qty > newQuantity) {
+        cartItem.qty = newQuantity;
+      }
+      updatedLoggedInCart.push(cartItem);
+    }
+  });
+
+  loggedIn.cart = updatedLoggedInCart;
+  localStorage.setItem("loggedInCustomer", JSON.stringify(loggedIn));
+}
+
 /* ---- EVENTS ---- */
 
 $(document).ready(function () {
+
   /* Logout */
   $("#logoutBtn, #logoutBtnSidebar").click(function () {
     saveIsAdminLoggedIn(false);
@@ -78,10 +140,10 @@ $(document).ready(function () {
     let $adminProductForm = $("#add-product-form")[0];
 
     if (checkProductFields($adminProductForm, category, productName, description, quantity, price)) {
-      let prodId  = getProductIdCounter();
-      let product = new Product(prodId, category, productName, description, quantity, price, imageUrl);
+      let prodId     = getProductIdCounter();
+      let product    = new Product(prodId, category, productName, description, quantity, price, imageUrl);
       let productDB  = getProductDatabase();
-      let index   = productDB.length;
+      let index      = productDB.length;
       productDB.push(product);
       saveProductDatabase(productDB);
       saveProductIdCounter(++prodId);
@@ -124,17 +186,21 @@ $(document).ready(function () {
     let $updateProductForm = $("#update-product-form")[0];
 
     if (checkProductFields($updateProductForm, category, productName, description, quantity, price)) {
-      let id = Number($(this).data("id"));
-      let productDB = getProductDatabase();
-      let product = productDB[id];
+      let id             = Number($(this).data("id"));
+      let productDB      = getProductDatabase();
+      let product        = productDB[id];
       let updatedProduct = new Product(product.getProductId(), category, productName, description, quantity, price, imageUrl);
-      productDB[id] = updatedProduct;
-      
+      productDB[id]      = updatedProduct;
+
       saveProductDatabase(productDB);
+
+      // update or remove this product from all customer carts
+      cleanupCartsForProduct(product.getProductId(), Number(quantity));
+
       $("#admin-product-grid").empty();
       renderAdminProductCards();
       alert("Successfully Updated Product");
-      
+
       $(".modal-backdrop").click();
     }
   });
@@ -142,7 +208,13 @@ $(document).ready(function () {
   /* Delete Product */
   $(document).on("click", ".deleteProductBtn", function () {
     if (!confirm("Are you sure you want to delete this product?")) return;
+
     let productDB = getProductDatabase();
+    let product   = productDB[$(this).data("id")];
+
+    // remove this product from all customer carts before deleting
+    cleanupCartsForProduct(product.getProductId(), 0);
+
     productDB.splice($(this).data("id"), 1);
     saveProductDatabase(productDB);
     $("#admin-product-grid").empty();
@@ -169,7 +241,7 @@ $(document).ready(function () {
     $("#txn-action-select").css("background-color", "");
   });
 
-  /* Init: load product count + render cards */
+  /* Init */
   if (!getIsAdminLoggedIn()) {
     location.replace("../html/auth.html");
   }
@@ -178,4 +250,5 @@ $(document).ready(function () {
   $("#total-products").text(productDB.length);
   saveTotalProducts(productDB.length);
   renderAdminProductCards();
+
 });

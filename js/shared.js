@@ -51,7 +51,7 @@ class Account extends Profile {
   
   getCart() { 
     return this.#cart.map(obj => 
-      new Product(obj.productId, obj.category, obj.productName, obj.productName.description, 
+      new Product(obj.productId, obj.category, obj.productName, obj.description, 
                   obj.quantityInStock, obj.price, obj.imageUrl)
     );
    }
@@ -112,6 +112,56 @@ class Product {
       quantityInStock: this.#quantityInStock,
       price: this.#price,
       imageUrl: this.#imageUrl
+    };
+  }
+}
+
+class Transaction {
+  #transactionId; #customerUsername; #products; 
+  #totalAmount; #paymentMethod; #status; #deliveryMethod;
+
+  constructor(transactionId, customerUsername, products, totalAmount, paymentMethod, status, deliveryMethod) {
+    this.#transactionId = transactionId;
+    this.#customerUsername = customerUsername;
+    this.#products = products;
+    this.#totalAmount = totalAmount;
+    this.#paymentMethod = paymentMethod;
+    this.#status = status;
+    this.#deliveryMethod = deliveryMethod;
+  }
+
+  getTransactionId() { return this.#transactionId; }
+  getCustomerUsername() { return this.#customerUsername; }  
+
+  getProducts() { 
+    return this.#products.map(obj => 
+      new Product(obj.productId, obj.category, obj.productName, obj.productName.description, 
+                  obj.quantityInStock, obj.price, obj.imageUrl)
+    );
+  }
+
+  getTotalAmount() { return this.#totalAmount; }
+  getPaymentMethod() { return this.#paymentMethod; }
+  getStatus() { return this.#status; }
+  getDeliveryMethod() { return this.#deliveryMethod; }
+
+  setTransactionId(transactionId) { this.#transactionId = transactionId; }
+  setCustomerUsername(customerUsername) { this.#customerUsername = customerUsername; }
+  setProducts(products) { this.#products = products; }
+  setTotalAmount(totalAmount) { this.#totalAmount = totalAmount; }
+  setPaymentMethod(paymentMethod) { this.#paymentMethod = paymentMethod; }
+  setStatus(status) { this.#status = status; }
+  setDeliveryMethod(deliveryMethod) { this.#deliveryMethod = deliveryMethod; }
+
+  toJSON() {
+    return {
+      transactionId: this.#transactionId,
+      customerUsername: this.#customerUsername,
+      products: this.#products,
+      totalAmount: this.#totalAmount,
+      paymentMethod: this.#paymentMethod,
+      status: this.#status,
+      deliveryMethod: this.#deliveryMethod
     };
   }
 }
