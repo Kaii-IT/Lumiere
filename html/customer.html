@@ -207,7 +207,7 @@
                 <div class="card-header">Change Password</div>
                 <div class="card-body">
                   <form id="change-password-form" novalidate>
-                    
+
                     <div class="form-group">
                       <label class="form-label" for="cp-current">Current Password</label>
                       <div style="position:relative;">
@@ -231,7 +231,8 @@
                       <div class="form-group">
                         <label class="form-label" for="cp-confirm">Confirm New</label>
                         <div style="position:relative;">
-                          <input type="password" id="cp-confirm" class="form-control" placeholder="Repeat new password" />
+                          <input type="password" id="cp-confirm" class="form-control"
+                            placeholder="Repeat new password" />
                           <button type="button" id="cp-confirm-show-password" class="password-toggle-btn">Show</button>
                         </div>
                         <p class="validation-msg error" id="cp-confirm-error"></p>
@@ -259,8 +260,9 @@
             </div>
             <div class="card-body">
               <div class="cart-item">
+                <input type="checkbox" class="cart-item-checkbox" />
                 <div class="cart-item-img">📦</div>
-                <div>
+                <div class="cart-item-details">
                   <div class="cart-item-name">ProMax Wireless Earbuds</div>
                   <div class="cart-item-meta">Active noise cancellation, 30hr battery life, premium carry case.</div>
                   <div class="qty-control">
@@ -270,6 +272,23 @@
                   </div>
                 </div>
                 <div class="cart-item-price">₱3,499</div>
+                <button type="button" class="cart-item-remove-btn">✕</button>
+              </div>
+
+              <div class="cart-item">
+                <input type="checkbox" class="cart-item-checkbox" />
+                <div class="cart-item-img">📦</div>
+                <div class="cart-item-details">
+                  <div class="cart-item-name">ProMax Wireless Earbuds</div>
+                  <div class="cart-item-meta">Active noise cancellation, 30hr battery life, premium carry case.</div>
+                  <div class="qty-control"> 
+                    <button type="button" class="qty-btn">–</button>
+                    <div class="qty-value">1</div>
+                    <button type="button" class="qty-btn">+</button>
+                  </div>
+                </div>
+                <div class="cart-item-price">₱3,499</div>
+                <button type="button" class="cart-item-remove-btn">✕</button>
               </div>
 
               <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;">
@@ -334,7 +353,7 @@
                     <div class="form-group">
                       <label class="form-label" for="checkout-recipient-name">Recipient Name</label>
                       <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name"
-                        value="Alexandra Vega" />
+                        value=" " />
                       <p class="validation-msg error" id="checkout-recipient-name-error"></p>
                     </div>
                     <div class="form-group">
