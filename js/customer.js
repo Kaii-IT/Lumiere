@@ -192,12 +192,12 @@ function recalculateTotal() {
 
 const SHIPPING_COSTS = { standard: 150, express: 350, sameday: 500 };
 const DELIVERY_LABELS = { standard: "Standard (3–5 days)", express: "Express (1–2 days)", sameday: "Same Day" };
-const PAYMENT_LABELS  = { cod: "Cash on Delivery", gcash: "GCash", maya: "Maya", card: "Debit/Credit Card" };
-const PAYMENT_ICONS   = {
-  cod:   '<i class="fa-solid fa-money-bill-wave" style="font-size:2.2rem;color:#2E9E5E;"></i>',
-  card:  '<i class="fa-solid fa-credit-card"     style="font-size:2.2rem;color:#1D4ED8;"></i>',
+const PAYMENT_LABELS = { cod: "Cash on Delivery", gcash: "GCash", maya: "Maya", card: "Debit/Credit Card" };
+const PAYMENT_ICONS = {
+  cod: '<i class="fa-solid fa-money-bill-wave" style="font-size:2.2rem;color:#2E9E5E;"></i>',
+  card: '<i class="fa-solid fa-credit-card"     style="font-size:2.2rem;color:#1D4ED8;"></i>',
   gcash: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/GCash_logo.svg/250px-GCash_logo.svg.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#007DFF;"></i>',
-  maya:  '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Maya_%28payment_service%29_logo.svg/250px-Maya_%28payment_service%29_logo.svg.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#2ECC71;"></i>'
+  maya: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Maya_%28payment_service%29_logo.svg/250px-Maya_%28payment_service%29_logo.svg.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#2ECC71;"></i>'
 };
 
 function getCheckedCartItems() {
@@ -210,12 +210,12 @@ function getCheckedCartItems() {
       let item = cartArray[itemIndex];
       let qty = parseInt($("#qty-value-" + itemIndex).text()) || 1;
       checkedItems.push({
-        productId:    item.productId,
-        productName:  item.productName,
-        price:        item.price,
-        qty:          qty,
-        category:     item.category,
-        imageUrl:     item.imageUrl
+        productId: item.productId,
+        productName: item.productName,
+        price: item.price,
+        qty: qty,
+        category: item.category,
+        imageUrl: item.imageUrl
       });
     }
   });
@@ -260,15 +260,15 @@ function closeCheckoutModal() {
 }
 
 function openPaymentConfirmModal() {
-  let checkedItems  = getCheckedCartItems();
+  let checkedItems = getCheckedCartItems();
   let deliveryOption = $("#checkout-delivery-option").val() || "standard";
-  let paymentMethod  = $("#checkout-payment-method").val();
+  let paymentMethod = $("#checkout-payment-method").val();
   let subtotal = 0;
   for (let i = 0; i < checkedItems.length; i++) {
     subtotal += parseFloat(checkedItems[i].price) * checkedItems[i].qty;
   }
   let shipping = SHIPPING_COSTS[deliveryOption] || 150;
-  let total    = subtotal + shipping;
+  let total = subtotal + shipping;
 
   let iconHtml = PAYMENT_ICONS[paymentMethod] || '<i class="fa-solid fa-wallet" style="font-size:2.2rem;"></i>';
 
@@ -281,7 +281,7 @@ function openPaymentConfirmModal() {
   }
 
   let customer = getLoggedInCustomer();
-  let txnId    = getTransactionIdCounter();
+  let txnId = getTransactionIdCounter();
 
   $("#pcm-icon").html(iconHtml);
   $("#pcm-payment-label").text(PAYMENT_LABELS[paymentMethod] || paymentMethod);
@@ -297,12 +297,12 @@ function openPaymentConfirmModal() {
 
   // store pending txn data in modal for confirmPayment to read
   $("#confirmPaymentBtn")
-    .data("items",          JSON.stringify(checkedItems))
-    .data("subtotal",       subtotal)
-    .data("shipping",       shipping)
-    .data("total",          total)
+    .data("items", JSON.stringify(checkedItems))
+    .data("subtotal", subtotal)
+    .data("shipping", shipping)
+    .data("total", total)
     .data("payment-method", paymentMethod)
-    .data("delivery-method",deliveryOption);
+    .data("delivery-method", deliveryOption);
 
   $("#payment-confirm-modal-backdrop").css("display", "block").hide().fadeIn(300);
   $("#payment-confirm-modal").css("display", "block").hide().fadeIn(300);
@@ -313,28 +313,28 @@ function closePaymentConfirmModal() {
 }
 
 function confirmPayment() {
-  let btn           = $("#confirmPaymentBtn");
-  let items         = JSON.parse(btn.data("items"));
-  let subtotal      = btn.data("subtotal");
-  let shipping      = btn.data("shipping");
-  let total         = btn.data("total");
+  let btn = $("#confirmPaymentBtn");
+  let items = JSON.parse(btn.data("items"));
+  let subtotal = btn.data("subtotal");
+  let shipping = btn.data("shipping");
+  let total = btn.data("total");
   let paymentMethod = btn.data("payment-method");
-  let deliveryMethod= btn.data("delivery-method");
-  let customer      = getLoggedInCustomer();
-  let txnId         = getTransactionIdCounter();
+  let deliveryMethod = btn.data("delivery-method");
+  let customer = getLoggedInCustomer();
+  let txnId = getTransactionIdCounter();
 
   // build raw transaction object
   let txn = {
-    transactionId:    txnId,
+    transactionId: txnId,
     customerUsername: customer.getUsername(),
-    customerName:     customer.getName(),
-    items:            items,
-    subtotal:         subtotal,
-    shipping:         shipping,
-    total:            total,
-    paymentMethod:    paymentMethod,
-    deliveryMethod:   deliveryMethod,
-    status:           "Pending"
+    customerName: customer.getName(),
+    items: items,
+    subtotal: subtotal,
+    shipping: shipping,
+    total: total,
+    paymentMethod: paymentMethod,
+    deliveryMethod: deliveryMethod,
+    status: "Pending"
   };
 
   // save to global transaction database
@@ -396,7 +396,7 @@ function proceedToCheckout() {
 
 /* ---- Orders rendering ---- */
 
-const ONGOING_STATUSES   = ["Pending", "Processing", "Shipped", "Delivered", "Processing Return", "Issuing Refund"];
+const ONGOING_STATUSES = ["Pending", "Processing", "Shipped", "Delivered", "Processing Return", "Issuing Refund"];
 const COMPLETED_STATUSES = ["Completed", "Cancelled", "Denied Return", "Returned", "Refunded"];
 const CANCELLED_STATUSES = [];
 
@@ -418,17 +418,17 @@ function generateItemsCollapsible(items, txnId) {
 }
 
 function getStatusBadgeClass(status) {
-  if (status === "Pending")           return "status-pending";
-  if (status === "Processing")        return "status-processing";
-  if (status === "Shipped")           return "status-processing";
-  if (status === "Delivered")         return "status-pending";
-  if (status === "Completed")         return "status-completed";
-  if (status === "Cancelled")         return "status-cancelled";
-  if (status === "Denied Return")     return "status-cancelled";
+  if (status === "Pending") return "status-pending";
+  if (status === "Processing") return "status-processing";
+  if (status === "Shipped") return "status-processing";
+  if (status === "Delivered") return "status-pending";
+  if (status === "Completed") return "status-completed";
+  if (status === "Cancelled") return "status-cancelled";
+  if (status === "Denied Return") return "status-cancelled";
   if (status === "Processing Return") return "status-returned";
-  if (status === "Issuing Refund")    return "status-returned";
-  if (status === "Returned")          return "status-returned";
-  if (status === "Refunded")          return "status-returned";
+  if (status === "Issuing Refund") return "status-returned";
+  if (status === "Returned") return "status-returned";
+  if (status === "Refunded") return "status-returned";
   return "status-pending";
 }
 
@@ -437,7 +437,7 @@ function renderOrderTables() {
   if (!customer) return;
 
   let allTxns = getTransactionDatabase();
-  let ongoing   = [];
+  let ongoing = [];
   let completed = [];
 
   for (let i = 0; i < allTxns.length; i++) {
@@ -522,7 +522,7 @@ function editProfileMode(element) {
   } else {
     $("#customer-profile-edit-mode").addClass("hidden");
     $("#customer-display-account-details").removeClass("hidden").hide().slideDown(400);
-    
+
     element.value = "Edit Profile";
     element.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Edit Profile';
   }
@@ -969,11 +969,11 @@ $(document).ready(function () {
   });
 
   /* Init */
-  renderCustomerProductCards();
-  displayCartItems();
-  renderOrderTables();
   if (getLoggedInCustomer()) {
     displayUserProfile();
+    renderCustomerProductCards();
+    displayCartItems();
+    renderOrderTables();
   } else {
     location.replace("../html/auth.html");
   }

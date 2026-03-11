@@ -388,7 +388,7 @@ function showHidePassword(field, button) {
     danger:  { icon: "fa-solid fa-circle-xmark",   color: "#DC2626", bg: "#FEF2F2" }
   };
 
-  function buildShell() {
+  function buildModal() {
     if ($("#lumiere-modal-overlay").length) return;
     $("body").append(
       '<div id="lumiere-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:99999;align-items:center;justify-content:center;">'
@@ -409,41 +409,41 @@ function showHidePassword(field, button) {
     // close on overlay click (alerts only — confirm ignores it)
     $("#lumiere-modal-overlay").on("click", function (e) {
       if ($(e.target).is("#lumiere-modal-overlay") && $("#lumiere-modal-overlay").data("type") === "alert") {
-        _closeModal();
+        closeModal();
       }
     });
   }
 
-  function _applyType(type) {
+  function applyType(type) {
     var t = MODAL_TYPES[type] || MODAL_TYPES.info;
     $("#lumiere-modal-icon").attr("class", t.icon).css("color", t.color);
     $("#lumiere-modal-icon-wrap").css("background", t.bg);
   }
 
-  function _openModal() {
+  function openModal() {
     $("#lumiere-modal-overlay").css("display", "flex").hide().fadeIn(250);
   }
 
-  function _closeModal() {
+  function closeModal() {
     $("#lumiere-modal-overlay").fadeOut(200);
   }
 
   window.showAlert = function (type, title, message) {
-    buildShell();
-    _applyType(type);
+    buildModal();
+    applyType(type);
     $("#lumiere-modal-title").text(title);
     $("#lumiere-modal-message").text(message);
     $("#lumiere-modal-overlay").data("type", "alert");
     $("#lumiere-modal-footer").html(
       '<button type="button" id="lumiere-modal-ok" class="btn btn-accent btn-lg" style="width:100%;">OK</button>'
     );
-    $("#lumiere-modal-ok").off("click").on("click", function () { _closeModal(); });
-    _openModal();
+    $("#lumiere-modal-ok").off("click").on("click", function () { closeModal(); });
+    openModal();
   };
 
   window.showConfirm = function (type, title, message, onConfirm) {
-    buildShell();
-    _applyType(type);
+    buildModal();
+    applyType(type);
     $("#lumiere-modal-title").text(title);
     $("#lumiere-modal-message").text(message);
     $("#lumiere-modal-overlay").data("type", "confirm");
@@ -453,8 +453,8 @@ function showHidePassword(field, button) {
     );
     var confirmLabels = { success: "Confirm", info: "OK", warning: "Proceed", danger: "Yes, Delete" };
     $("#lumiere-modal-confirm").text(confirmLabels[type] || "Confirm");
-    $("#lumiere-modal-confirm").off("click").on("click", function () { _closeModal(); if (typeof onConfirm === "function") onConfirm(); });
-    $("#lumiere-modal-cancel").off("click").on("click", function () { _closeModal(); });
-    _openModal();
+    $("#lumiere-modal-confirm").off("click").on("click", function () { closeModal(); if (typeof onConfirm === "function") onConfirm(); });
+    $("#lumiere-modal-cancel").off("click").on("click", function () { closeModal(); });
+    openModal();
   };
 })();
