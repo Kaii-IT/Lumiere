@@ -84,8 +84,8 @@ $(document).ready(function () {
       saveCustomerDatabase(customerDB);
 
       clearCreateAccountFields();
-      alert("Account created successfully! Please log in.");
-      location.replace("../html/auth.html");
+      showAlert("success", "Account Created!", "Your account has been created successfully. Please log in.");
+      setTimeout(function () { location.replace("../html/auth.html"); }, 1800);
     }
   });
 

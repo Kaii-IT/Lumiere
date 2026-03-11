@@ -48,7 +48,9 @@ class Account extends Profile {
 
   getUsername() { return this.#username; }
   getPassword() { return this.#password; }
-  
+
+  getRawCart() { return this.#cart; }
+
   getCart() { 
     return this.#cart.map(obj => 
       new Product(obj.productId, obj.category, obj.productName, obj.description, 
@@ -69,6 +71,40 @@ class Account extends Profile {
       username: this.#username,
       password: this.#password,
       cart: this.#cart
+    };
+  }
+}
+
+class AdminAccount {
+  #name; #email; #contactNumber; #username; #password;
+
+  constructor(name, email, contactNumber, username, password) {
+    this.#name = name;
+    this.#email = email;
+    this.#contactNumber = contactNumber;
+    this.#username = username;
+    this.#password = password;
+  }
+
+  getName()          { return this.#name; }
+  getEmail()         { return this.#email; }
+  getContactNumber() { return this.#contactNumber; }
+  getUsername()      { return this.#username; }
+  getPassword()      { return this.#password; }
+
+  setName(name)          { this.#name = name; }
+  setEmail(email)        { this.#email = email; }
+  setContactNumber(c)    { this.#contactNumber = c; }
+  setUsername(username)  { this.#username = username; }
+  setPassword(password)  { this.#password = password; }
+
+  toJSON() {
+    return {
+      name:          this.#name,
+      email:         this.#email,
+      contactNumber: this.#contactNumber,
+      username:      this.#username,
+      password:      this.#password
     };
   }
 }
@@ -170,12 +206,24 @@ class Transaction {
 
 function getCustomerDatabase() {
   let raw = JSON.parse(localStorage.getItem("customerDatabase"));
-  return raw.map(obj =>
-    new Account(obj.name, obj.email, obj.contactNumber, obj.deliveryAddress, obj.username, obj.password, obj.cart)
-  );
+  let clean = [];
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] !== null && raw[i] !== undefined) clean.push(raw[i]);
+  }
+  return clean.map(obj => new Account(obj.name, obj.email, obj.contactNumber, obj.deliveryAddress, obj.username, obj.password, obj.cart));
 }
 function saveCustomerDatabase(db) {
-  localStorage.setItem("customerDatabase", JSON.stringify(db));
+  let seen = {};
+  let clean = [];
+  for (let i = 0; i < db.length; i++) {
+    let obj = db[i];
+    if (obj === null || obj === undefined) continue;
+    let key = obj.getUsername ? obj.getUsername() : obj.username;
+    if (seen[key]) continue;
+    seen[key] = true;
+    clean.push(obj);
+  }
+  localStorage.setItem("customerDatabase", JSON.stringify(clean));
 }
 
 function getProductDatabase() {
@@ -210,6 +258,57 @@ function getIsAdminLoggedIn() {
 }
 function saveIsAdminLoggedIn(isLoggedIn) {
   localStorage.setItem("isAdminLoggedIn", JSON.stringify(isLoggedIn));
+}
+
+function getAdminDatabase() {
+  let raw = JSON.parse(localStorage.getItem("adminDatabase"));
+  let clean = [];
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] !== null && raw[i] !== undefined) clean.push(raw[i]);
+  }
+  return clean.map(obj => new AdminAccount(obj.name, obj.email, obj.contactNumber, obj.username, obj.password));
+}
+function saveAdminDatabase(db) {
+  let seen = {};
+  let clean = [];
+  for (let i = 0; i < db.length; i++) {
+    let obj = db[i];
+    if (obj === null || obj === undefined) continue;
+    let key = obj.getUsername ? obj.getUsername() : obj.username;
+    if (seen[key]) continue;
+    seen[key] = true;
+    clean.push(obj);
+  }
+  localStorage.setItem("adminDatabase", JSON.stringify(clean));
+}
+
+function getLoggedInAdmin() {
+  let raw = JSON.parse(localStorage.getItem("loggedInAdmin"));
+  if (raw === null) return null;
+  return new AdminAccount(raw.name, raw.email, raw.contactNumber, raw.username, raw.password);
+}
+function saveLoggedInAdmin(admin) {
+  localStorage.setItem("loggedInAdmin", JSON.stringify(admin));
+}
+
+function getTransactionDatabase() {
+  let raw = JSON.parse(localStorage.getItem("transactionDatabase"));
+  if (!raw) return [];
+  let clean = [];
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] !== null && raw[i] !== undefined) clean.push(raw[i]);
+  }
+  return clean;
+}
+function saveTransactionDatabase(db) {
+  localStorage.setItem("transactionDatabase", JSON.stringify(db));
+}
+
+function getTransactionIdCounter() {
+  return Number(localStorage.getItem("transactionIdCounter")) || 1;
+}
+function saveTransactionIdCounter(id) {
+  localStorage.setItem("transactionIdCounter", String(id));
 }
 
 function getImagePlaceholderByCategory(category) {
@@ -248,4 +347,114 @@ function showHidePassword(field, button) {
   if (!localStorage.getItem("isAdminLoggedIn")) {
     localStorage.setItem("isAdminLoggedIn", JSON.stringify(false));
   }
+
+  let adminDB = JSON.parse(localStorage.getItem("adminDatabase")) || [];
+  let hasDefault = false;
+  for (let i = 0; i < adminDB.length; i++) {
+    if (adminDB[i].username === "lumiereAdmin") { hasDefault = true; break; }
+  }
+  if (!hasDefault) {
+    let defaultAdmin = new AdminAccount("Lumiere Admin", "admin@lumiere.com", "00000000", "lumiereAdmin", "admin123");
+    adminDB.push(defaultAdmin);
+    localStorage.setItem("adminDatabase", JSON.stringify(adminDB));
+  }
+
+  if (!localStorage.getItem("loggedInAdmin")) {
+    localStorage.setItem("loggedInAdmin", JSON.stringify(null));
+  }
+
+  if (!localStorage.getItem("transactionDatabase")) {
+    localStorage.setItem("transactionDatabase", JSON.stringify([]));
+  }
+
+  if (!localStorage.getItem("transactionIdCounter")) {
+    localStorage.setItem("transactionIdCounter", "1");
+  }
+})();
+
+/* =====================================================================
+   LUMIÈRE CUSTOM MODAL SYSTEM
+   showAlert(type, title, message)
+   showConfirm(type, title, message, onConfirm)
+
+   Types: "success" | "info" | "warning" | "danger"
+   ===================================================================== */
+
+(function () {
+  var MODAL_TYPES = {
+    success: { icon: "fa-solid fa-circle-check",    color: "#2E9E5E", bg: "#F0FBF4" },
+    info:    { icon: "fa-solid fa-circle-info",     color: "#1D4ED8", bg: "#EFF6FF" },
+    warning: { icon: "fa-solid fa-triangle-exclamation", color: "#B45309", bg: "#FFFBEB" },
+    danger:  { icon: "fa-solid fa-circle-xmark",   color: "#DC2626", bg: "#FEF2F2" }
+  };
+
+  function buildShell() {
+    if ($("#lumiere-modal-overlay").length) return;
+    $("body").append(
+      '<div id="lumiere-modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:99999;align-items:center;justify-content:center;">'
+      + '<div id="lumiere-modal-box" style="background:#fff;border-radius:16px;width:90vw;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,.18);overflow:hidden;font-family:inherit;">'
+        + '<div id="lumiere-modal-header" style="padding:28px 28px 0;text-align:center;">'
+          + '<div id="lumiere-modal-logo" style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:1.1rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:18px;">LUMI<span style="color:var(--accent,#b08d6a);">È</span>RE</div>'
+          + '<div id="lumiere-modal-icon-wrap" style="width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;">'
+            + '<i id="lumiere-modal-icon" style="font-size:1.7rem;"></i>'
+          + '</div>'
+          + '<div id="lumiere-modal-title" style="font-family:\'Cormorant Garamond\',Georgia,serif;font-size:1.25rem;font-weight:600;color:#1a1a1a;margin-bottom:8px;"></div>'
+          + '<div id="lumiere-modal-message" style="font-size:.9rem;color:#666;line-height:1.6;padding:0 4px 24px;"></div>'
+        + '</div>'
+        + '<div id="lumiere-modal-footer" style="padding:0 28px 24px;display:flex;flex-direction:column;gap:10px;"></div>'
+      + '</div>'
+      + '</div>'
+    );
+
+    // close on overlay click (alerts only — confirm ignores it)
+    $("#lumiere-modal-overlay").on("click", function (e) {
+      if ($(e.target).is("#lumiere-modal-overlay") && $("#lumiere-modal-overlay").data("type") === "alert") {
+        _closeModal();
+      }
+    });
+  }
+
+  function _applyType(type) {
+    var t = MODAL_TYPES[type] || MODAL_TYPES.info;
+    $("#lumiere-modal-icon").attr("class", t.icon).css("color", t.color);
+    $("#lumiere-modal-icon-wrap").css("background", t.bg);
+  }
+
+  function _openModal() {
+    $("#lumiere-modal-overlay").css("display", "flex").hide().fadeIn(250);
+  }
+
+  function _closeModal() {
+    $("#lumiere-modal-overlay").fadeOut(200);
+  }
+
+  window.showAlert = function (type, title, message) {
+    buildShell();
+    _applyType(type);
+    $("#lumiere-modal-title").text(title);
+    $("#lumiere-modal-message").text(message);
+    $("#lumiere-modal-overlay").data("type", "alert");
+    $("#lumiere-modal-footer").html(
+      '<button type="button" id="lumiere-modal-ok" class="btn btn-accent btn-lg" style="width:100%;">OK</button>'
+    );
+    $("#lumiere-modal-ok").off("click").on("click", function () { _closeModal(); });
+    _openModal();
+  };
+
+  window.showConfirm = function (type, title, message, onConfirm) {
+    buildShell();
+    _applyType(type);
+    $("#lumiere-modal-title").text(title);
+    $("#lumiere-modal-message").text(message);
+    $("#lumiere-modal-overlay").data("type", "confirm");
+    $("#lumiere-modal-footer").html(
+      '<button type="button" id="lumiere-modal-confirm" class="btn btn-accent btn-lg" style="width:100%;"></button>'
+      + '<button type="button" id="lumiere-modal-cancel" class="btn btn-outline btn-lg" style="width:100%;">Cancel</button>'
+    );
+    var confirmLabels = { success: "Confirm", info: "OK", warning: "Proceed", danger: "Yes, Delete" };
+    $("#lumiere-modal-confirm").text(confirmLabels[type] || "Confirm");
+    $("#lumiere-modal-confirm").off("click").on("click", function () { _closeModal(); if (typeof onConfirm === "function") onConfirm(); });
+    $("#lumiere-modal-cancel").off("click").on("click", function () { _closeModal(); });
+    _openModal();
+  };
 })();

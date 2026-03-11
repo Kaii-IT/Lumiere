@@ -5,8 +5,16 @@
 
 /* ---- HELPERS ---- */
 
-function isAdmin(username, password) {
-  return username === "lumiereAdmin" && password === "admin123";
+function checkAdminCredentials(username, password) {
+  let adminDB = getAdminDatabase();
+  let found = null;
+  for (let i = 0; i < adminDB.length; i++) {
+    if (adminDB[i].getUsername() === username && adminDB[i].getPassword() === password) {
+      found = adminDB[i];
+      break;
+    }
+  }
+  return found;
 }
 
 function checkCustomerCredentials(username, password) {
@@ -21,8 +29,10 @@ function checkCustomerCredentials(username, password) {
 }
 
 function validateLogin(username, password) {
-  if (isAdmin(username, password)) {
+  let admin = checkAdminCredentials(username, password);
+  if (admin !== null) {
     saveIsAdminLoggedIn(true);
+    saveLoggedInAdmin(admin);
     location.replace("../html/admin.html");
     return true;
   }

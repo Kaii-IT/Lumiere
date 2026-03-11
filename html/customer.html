@@ -20,7 +20,6 @@
         <ul class="navbar-nav">
           <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
           <li><a href="#" class="nav-link"         onclick="return showView('customer-cart-view');">Cart</a></li>
-          <li><a href="#" class="nav-link"         onclick="return showView('customer-checkout-view');">Checkout</a></li>
           <li><a href="#" class="nav-link"         onclick="return showView('customer-orders-view');">Orders</a></li>
           <li><a href="#" class="nav-link"         onclick="return showView('customer-profile-view');">Profile</a></li>
         </ul>
@@ -34,7 +33,6 @@
       <ul style="display:flex;justify-content:center;">
         <li><a href="#" class="nav-link active" onclick="return showView('customer-home-view');">Home</a></li>
         <li><a href="#" class="nav-link"         onclick="return showView('customer-cart-view');">Cart</a></li>
-        <li><a href="#" class="nav-link"         onclick="return showView('customer-checkout-view');">Checkout</a></li>
         <li><a href="#" class="nav-link"         onclick="return showView('customer-orders-view');">Orders</a></li>
         <li><a href="#" class="nav-link"         onclick="return showView('customer-profile-view');">Profile</a></li>
       </ul>
@@ -50,9 +48,6 @@
             </a>
             <a href="#" onclick="return showView('customer-cart-view');">
               <span class="nav-icon"><i class="fa-solid fa-cart-shopping"></i></span> Cart
-            </a>
-            <a href="#" onclick="return showView('customer-checkout-view');">
-              <span class="nav-icon"><i class="fa-solid fa-credit-card"></i></span> Checkout
             </a>
             <a href="#" onclick="return showView('customer-orders-view');">
               <span class="nav-icon"><i class="fa-solid fa-box-open"></i></span> Orders
@@ -138,8 +133,8 @@
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
                     <button type="button" class="btn btn-primary btn-block"
-                            onclick="editProfileMode(this)" id="customer-edit-profile-btn">
-                      Edit Profile
+                            onclick="editProfileMode(this)" id="customer-edit-profile-btn" value="Edit Profile">
+                      <i class="fa-solid fa-pen-to-square"></i> Edit Profile
                     </button>
                     <button type="button" class="btn btn-outline btn-block" id="logoutBtnProfile">
                       Logout
@@ -268,7 +263,7 @@
                   Total (checked): <span class="cart-selected-amount">₱0</span>
                 </div>
                 <div style="display:flex;gap:12px;flex-wrap:wrap;">
-                  <button type="button" class="btn btn-accent" onclick="return showView('customer-checkout-view');">
+                  <button type="button" class="btn btn-accent" onclick="return proceedToCheckout();">
                     Proceed to Checkout →
                   </button>
                   <button type="button" class="btn btn-outline" onclick="return showView('customer-home-view');">
@@ -283,117 +278,189 @@
         <!-- ===================== ORDERS ===================== -->
         <section id="customer-orders-view" class="sub-section hidden">
           <h1 class="page-title">Order History</h1>
-          <p class="page-subtitle">Track and manage your past orders.</p>
+          <p class="page-subtitle">Track and manage your orders.</p>
 
-          <div class="orders-table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Items</th>
-                  <th>Total</th>
-                  <th>Payment</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><span class="order-id">#ORD-2025-001</span></td>
-                  <td>View Items</td>
-                  <td style="font-weight:600;color:var(--ink);">₱6,209</td>
-                  <td>Cash on Delivery</td>
-                  <td><span class="status-badge status-completed">● Completed</span></td>
-                </tr>
-                <tr>
-                  <td><span class="order-id">#ORD-2025-002</span></td>
-                  <td>Linen Wrap Dress ×1</td>
-                  <td style="font-weight:600;color:var(--ink);">₱1,800</td>
-                  <td>GCash</td>
-                  <td><span class="status-badge status-processing">⏳ Processing</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
+          <!-- Ongoing Orders -->
+          <section style="margin-bottom:40px;">
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+              Ongoing Orders
+              <span style="font-size:.75rem;font-family:var(--font-body);background:#EFF6FF;color:#1D4ED8;padding:3px 10px;border-radius:100px;font-weight:500;">Active</span>
+            </h2>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="ongoing-orders-tbody">
+                </tbody>
+              </table>
+            </div>
+          </section>
 
-        <!-- ===================== CHECKOUT ===================== -->
-        <section id="customer-checkout-view" class="sub-section hidden">
-          <h1 class="page-title">Checkout</h1>
-          <p class="page-subtitle">Review your order and confirm your purchase.</p>
-
-          <div class="checkout-layout">
-            <section>
-              <div class="card">
-                <div class="card-header">Delivery Information</div>
-                <div class="card-body">
-                  <form id="checkout-delivery-form" novalidate>
-                    <div class="form-group">
-                      <label class="form-label" for="checkout-recipient-name">Recipient Name</label>
-                      <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name" disabled />
-                      <p class="validation-msg error" id="checkout-recipient-name-error"></p>
-                    </div>
-                    <div class="form-group">
-                      <label class="form-label" for="checkout-delivery-address">Delivery Address</label>
-                      <textarea id="checkout-delivery-address" class="form-control" rows="2" disabled></textarea>
-                      <p class="validation-msg error" id="checkout-delivery-address-error"></p>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group">
-                        <label class="form-label" for="checkout-contact">Contact Number</label>
-                        <input type="tel" id="checkout-contact" class="form-control" placeholder="+63 912 345 6789" disabled />
-                        <p class="validation-msg error" id="checkout-contact-error"></p>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label" for="checkout-delivery-option">Delivery Option</label>
-                        <select id="checkout-delivery-option" class="form-control">
-                          <option value="standard">Standard (3–5 days) — ₱150</option>
-                          <option value="express">Express (1–2 days) — ₱350</option>
-                          <option value="sameday">Same Day — ₱500</option>
-                        </select>
-                      </div>
-                      <div class="form-group">
-                        <label class="form-label" for="checkout-payment-method">Payment Method</label>
-                        <select id="checkout-payment-method" class="form-control">
-                          <option value="">— Select Payment Method —</option>
-                          <option value="cod">Cash on Delivery (COD)</option>
-                          <option value="gcash">GCash</option>
-                          <option value="maya">Maya</option>
-                          <option value="card">Debit/Credit Card</option>
-                        </select>
-                        <p class="validation-msg error" id="checkout-payment-method-error"></p>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </section>
-
-            <aside>
-              <div class="card" style="position:sticky;top:calc(var(--nav-h) + 24px);">
-                <div class="card-header">Order Summary</div>
-                <div class="card-body">
-                  <div class="cart-summary-row"><span>Subtotal</span><span>₱6,059</span></div>
-                  <div class="cart-summary-row"><span>Shipping</span><span>₱150</span></div>
-                  <div class="cart-summary-row total"><span>Total</span><span>₱6,209</span></div>
-
-                  <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
-                    <button type="button" class="btn btn-accent btn-lg"
-                            onclick="return showView('customer-orders-view');">
-                      ✓ Confirm Purchase
-                    </button>
-                    <button type="button" class="btn btn-outline btn-lg"
-                            onclick="return showView('customer-cart-view');">
-                      ← Back to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </aside>
-          </div>
+          <!-- Completed Orders -->
+          <section>
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;display:flex;align-items:center;gap:10px;">
+              Completed Orders
+              <span style="font-size:.75rem;font-family:var(--font-body);background:#F0FBF4;color:var(--success);padding:3px 10px;border-radius:100px;font-weight:500;">Done</span>
+            </h2>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="completed-orders-tbody">
+                </tbody>
+              </table>
+            </div>
+          </section>
         </section>
 
       </main>
     </div><!-- /customer-layout -->
+
+    <!-- ===================== CHECKOUT MODAL ===================== -->
+    <div class="modal-backdrop" id="checkout-modal-backdrop" style="display:none;"></div>
+
+    <section class="modal" id="checkout-modal" style="display:none;max-width:820px;">
+      <button type="button" class="close-btn" id="closeCheckoutModal">✕</button>
+
+      <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">
+        Checkout
+      </h2>
+
+      <div class="checkout-layout" style="display:flex;gap:24px;flex-wrap:wrap;">
+
+        <!-- Delivery Info -->
+        <section style="flex:1;min-width:260px;">
+          <div class="card">
+            <div class="card-header">Delivery Information</div>
+            <div class="card-body">
+              <form id="checkout-delivery-form" novalidate>
+                <div class="form-group">
+                  <label class="form-label" for="checkout-recipient-name">Recipient Name</label>
+                  <input type="text" id="checkout-recipient-name" class="form-control" placeholder="Full name" disabled />
+                  <p class="validation-msg error" id="checkout-recipient-name-error"></p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="checkout-delivery-address">Delivery Address</label>
+                  <textarea id="checkout-delivery-address" class="form-control" rows="2" disabled></textarea>
+                  <p class="validation-msg error" id="checkout-delivery-address-error"></p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="checkout-contact">Contact Number</label>
+                  <input type="tel" id="checkout-contact" class="form-control" placeholder="+63 912 345 6789" disabled />
+                  <p class="validation-msg error" id="checkout-contact-error"></p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="checkout-delivery-option">Delivery Option</label>
+                  <select id="checkout-delivery-option" class="form-control">
+                    <option value="standard">Standard (3–5 days) — ₱150</option>
+                    <option value="express">Express (1–2 days) — ₱350</option>
+                    <option value="sameday">Same Day — ₱500</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="checkout-payment-method">Payment Method</label>
+                  <select id="checkout-payment-method" class="form-control">
+                    <option value="">— Select Payment Method —</option>
+                    <option value="cod">Cash on Delivery (COD)</option>
+                    <option value="gcash">GCash</option>
+                    <option value="maya">Maya</option>
+                    <option value="card">Debit/Credit Card</option>
+                  </select>
+                  <p class="validation-msg error" id="checkout-payment-method-error"></p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+
+        <!-- Order Summary -->
+        <aside style="flex:0 0 240px;min-width:220px;">
+          <div class="card">
+            <div class="card-header">Order Summary</div>
+            <div class="card-body">
+              <div id="checkout-items-list" style="margin-bottom:12px;"></div>
+              <div class="cart-summary-row">
+                <span>Subtotal</span>
+                <span>&#8369;<span id="checkout-subtotal">0</span></span>
+              </div>
+              <div class="cart-summary-row">
+                <span>Shipping</span>
+                <span>&#8369;<span id="checkout-shipping">150</span></span>
+              </div>
+              <div class="cart-summary-row total">
+                <span>Total</span>
+                <span>&#8369;<span id="checkout-total">0</span></span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+                <button type="button" class="btn btn-accent btn-lg" id="confirmPurchaseBtn">
+                  ✓ Confirm Purchase
+                </button>
+                <button type="button" class="btn btn-outline btn-lg" id="backToCartBtn">
+                  ← Back to Cart
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ===================== PAYMENT CONFIRM MODAL ===================== -->
+    <div class="modal-backdrop" id="payment-confirm-modal-backdrop" style="display:none;"></div>
+
+    <section class="modal" id="payment-confirm-modal" style="display:none;max-width:480px;">
+      <button type="button" class="close-btn" id="closePaymentConfirmModal">✕</button>
+      <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:20px;">Confirm Order</h2>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-body" style="text-align:center;padding:28px 24px;">
+          <div id="pcm-icon" style="margin-bottom:12px;min-height:44px;display:flex;align-items:center;justify-content:center;"></div>
+          <div style="font-family:var(--font-display);font-size:1.2rem;font-weight:600;margin-bottom:4px;" id="pcm-payment-label">—</div>
+          <div style="font-size:.8rem;color:#aaa;letter-spacing:.06em;">Transaction ID: <span id="pcm-txn-id" style="color:var(--accent);font-weight:600;">—</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-header">Delivery Details</div>
+        <div class="card-body" style="padding:16px 20px;">
+          <div class="detail-row"><span class="detail-label">Recipient</span><span class="detail-value" id="pcm-recipient">—</span></div>
+          <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value" id="pcm-address">—</span></div>
+          <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value" id="pcm-contact">—</span></div>
+          <div class="detail-row" style="border:none;"><span class="detail-label">Method</span><span class="detail-value" id="pcm-delivery">—</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div class="card-header">Order Summary</div>
+        <div class="card-body" style="padding:16px 20px;">
+          <ul id="pcm-items-list" style="list-style:none;padding:0;margin-bottom:12px;border-bottom:1px solid var(--border);padding-bottom:10px;"></ul>
+          <div class="cart-summary-row"><span>Subtotal</span><span>&#8369;<span id="pcm-subtotal">0</span></span></div>
+          <div class="cart-summary-row"><span>Shipping</span><span>&#8369;<span id="pcm-shipping">0</span></span></div>
+          <div class="cart-summary-row total"><span>Total</span><span>&#8369;<span id="pcm-total">0</span></span></div>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button type="button" class="btn btn-accent btn-lg" id="confirmPaymentBtn">✓ Place Order</button>
+        <button type="button" class="btn btn-outline btn-lg" id="cancelPaymentBtn">← Go Back</button>
+      </div>
+    </section>
 
     <footer id="app-footer">
       <div class="container">
