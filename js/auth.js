@@ -73,5 +73,7 @@ $(document).ready(function () {
 
   if (getIsAdminLoggedIn()) {
     location.replace("../html/admin.html");
+  } else if (getLoggedInCustomer()) {
+    location.replace("../html/customer.html");
   }
 });
