@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LUMIÈRE – Admin</title>
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
-
 <body>
   <!-- ADMIN PAGE -->
   <section id="admin-section" class="root-section">
@@ -16,15 +14,14 @@
       <div class="container navbar-inner">
         <a href="#" class="navbar-brand" onclick="return showView('admin-dashboard-view');">
           LUMI<span>È</span>RE
-          <span
-            style="font-size:.75rem;font-family:var(--font-body);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;">
+          <span style="font-size:.75rem;font-family:var(--font-body);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;">
             Admin
           </span>
         </a>
         <ul class="navbar-nav">
           <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('admin-transactions-view');">Transactions</a></li>
-          <li><a href="#" class="nav-link" onclick="return showView('admin-products-view');">Products</a></li>
+          <li><a href="#" class="nav-link"        onclick="return showView('admin-transactions-view');">Transactions</a></li>
+          <li><a href="#" class="nav-link"        onclick="return showView('admin-products-view');">Products</a></li>
         </ul>
         <div class="navbar-actions">
           <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Logout</button>
@@ -35,8 +32,8 @@
     <nav class="navbar mobile-nav">
       <ul style="display:flex;justify-content:center;">
         <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('admin-transactions-view');">Transactions</a></li>
-        <li><a href="#" class="nav-link" onclick="return showView('admin-products-view');">Products</a></li>
+        <li><a href="#" class="nav-link"        onclick="return showView('admin-transactions-view');">Transactions</a></li>
+        <li><a href="#" class="nav-link"        onclick="return showView('admin-products-view');">Products</a></li>
       </ul>
     </nav>
 
@@ -100,8 +97,7 @@
             <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;">Logged In As</h2>
             <div class="card">
               <div class="card-body" style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;">
-                <div
-                  style="width:52px;height:52px;border-radius:50%;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent-dark);">
+                <div style="width:52px;height:52px;border-radius:50%;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent-dark);">
                   <i class="fa-solid fa-user-shield"></i>
                 </div>
                 <div>
@@ -116,8 +112,7 @@
 
           <!-- Admin Accounts Table -->
           <section style="margin-bottom:48px;">
-            <div
-              style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
               <h2 style="font-family:var(--font-display);font-weight:300;margin:0;">Admin Accounts</h2>
               <button type="button" class="btn btn-accent btn-sm" id="openAddAdminModalBtn">
                 <i class="fa-solid fa-plus"></i> Add Admin
@@ -144,8 +139,7 @@
 
         <!-- Admin: Product Catalogue -->
         <section id="admin-products-view" class="sub-section hidden">
-          <div
-            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
             <div>
               <h1 class="page-title" style="margin-bottom:4px;">Product Catalogue</h1>
               <p class="page-subtitle" style="margin:0;">Manage your products conveniently.</p>
@@ -159,8 +153,7 @@
             <div class="search-bar" style="flex:1;min-width:240px;">
               <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
               <input type="search" id="admin-product-search-input" placeholder="Search products…" autocomplete="off" />
-              <button type="button" class="btn btn-sm btn-accent" id="search-btn"
-                style="border-radius:100px;padding:6px 18px;">Search</button>
+              <button type="button" class="btn btn-sm btn-accent" id="search-btn" style="border-radius:100px;padding:6px 18px;">Search</button>
               <i class="fa-solid fa-arrow-rotate-left" id="reset-icon"></i>
             </div>
             <select id="admin-category-filter-dropdown" class="filter-select">
@@ -225,8 +218,7 @@
             <h3>
               <span class="section-icon"><i class="fa-solid fa-spinner"></i></span>
               Processing Orders
-              <span
-                style="font-size:.75rem;font-family:var(--font-body);background:#EFF6FF;color:#1D4ED8;padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Active</span>
+              <span style="font-size:.75rem;font-family:var(--font-body);background:#EFF6FF;color:#1D4ED8;padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Active</span>
             </h3>
             <div class="orders-table-wrap">
               <table>
@@ -249,10 +241,9 @@
           <!-- Completed / Closed Orders Table -->
           <section class="transaction-section">
             <h3>
-              <span class="section-icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="section-icon">📋</span>
               Completed Orders
-              <span
-                style="font-size:.75rem;font-family:var(--font-body);background:#F0FBF4;color:var(--success);padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Closed</span>
+              <span style="font-size:.75rem;font-family:var(--font-body);background:#F0FBF4;color:var(--success);padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Closed</span>
             </h3>
             <div class="orders-table-wrap">
               <table>
@@ -372,8 +363,7 @@
             </div>
           </div>
           <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
-            <button type="button" class="btn btn-accent btn-lg" id="saveEditAdminBtn" data-username="">Save
-              Changes</button>
+            <button type="button" class="btn btn-accent btn-lg" id="saveEditAdminBtn" data-username="">Save Changes</button>
             <button type="reset" class="btn btn-ghost">Clear</button>
           </div>
         </form>
@@ -409,8 +399,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="product-description">Description</label>
-            <textarea id="product-description" class="form-control" placeholder="Describe the product…"
-              rows="3"></textarea>
+            <textarea id="product-description" class="form-control" placeholder="Describe the product…" rows="3"></textarea>
             <p class="validation-msg error" id="product-description-error"></p>
           </div>
           <div class="form-row">
@@ -428,8 +417,7 @@
           <div class="form-group">
             <label class="form-label" for="product-image-url">Image Hosting URL</label>
             <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
-            <input type="text" id="product-image-url" class="form-control"
-              placeholder="e.g. https://example.com/image.jpg" />
+            <input type="text" id="product-image-url" class="form-control" placeholder="e.g. https://example.com/image.jpg" />
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
             <button type="button" class="btn btn-accent btn-lg" id="addProductBtn">＋ Add Product</button>
@@ -468,8 +456,7 @@
           </div>
           <div class="form-group">
             <label class="form-label" for="update-product-description">Description</label>
-            <textarea id="update-product-description" class="form-control" placeholder="Describe the product…"
-              rows="3"></textarea>
+            <textarea id="update-product-description" class="form-control" placeholder="Describe the product…" rows="3"></textarea>
             <p class="validation-msg error" id="update-product-description-error"></p>
           </div>
           <div class="form-row">
@@ -480,20 +467,17 @@
             </div>
             <div class="form-group">
               <label class="form-label" for="update-product-price">Price (₱)</label>
-              <input type="number" id="update-product-price" class="form-control" placeholder="0.00" min="0"
-                step="0.01" />
+              <input type="number" id="update-product-price" class="form-control" placeholder="0.00" min="0" step="0.01" />
               <p class="validation-msg error" id="update-product-price-error"></p>
             </div>
           </div>
           <div class="form-group">
             <label class="form-label" for="update-product-image-url">Image Hosting URL</label>
             <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
-            <input type="text" id="update-product-image-url" class="form-control"
-              placeholder="e.g. https://example.com/image.jpg" />
+            <input type="text" id="update-product-image-url" class="form-control" placeholder="e.g. https://example.com/image.jpg" />
           </div>
           <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
-            <button type="button" class="btn btn-accent btn-lg" id="updateProductBtn" data-id="">＋ Update
-              Product</button>
+            <button type="button" class="btn btn-accent btn-lg" id="updateProductBtn" data-id="">＋ Update Product</button>
             <button type="reset" class="btn btn-ghost">Clear Form</button>
           </div>
         </form>
@@ -508,5 +492,4 @@
   <script src="../js/shared.js"></script>
   <script src="../js/admin.js"></script>
 </body>
-
 </html>
