@@ -33,14 +33,18 @@ function validateLogin(username, password) {
   if (admin !== null) {
     saveIsAdminLoggedIn(true);
     saveLoggedInAdmin(admin);
-    location.replace("../html/admin.html");
+    showAlert("success", "Authenticated", "Welcome, @" + username, function () {
+      location.replace("../html/admin.html");
+    });
     return true;
   }
 
   let account = checkCustomerCredentials(username, password);
   if (account !== null) {
     saveLoggedInCustomer(account);
-    location.replace("../html/customer.html");
+    showAlert("success", "Authenticated", "Welcome, @" + username, function () {
+      location.replace("../html/customer.html");
+    });
     return true;
   }
 
@@ -70,10 +74,4 @@ $(document).ready(function () {
   $(".password-toggle-btn").click(function () {
     showHidePassword($(this).prev(), $(this));
   });
-
-  if (getIsAdminLoggedIn()) {
-    location.replace("../html/admin.html");
-  } else if (getLoggedInCustomer()) {
-    location.replace("../html/customer.html");
-  }
 });

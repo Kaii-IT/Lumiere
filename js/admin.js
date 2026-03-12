@@ -417,7 +417,7 @@ $(document).ready(function () {
       showAlert("success", "Product Deleted", "The product has been removed successfully.");
     });
   });
-  
+
   /* ---- TRANSACTION EVENTS ---- */
 
   const ADMIN_ONGOING_STATUSES   = ["Pending", "Processing", "Shipped", "Delivered", "Processing Return", "Issuing Refund"];
@@ -813,5 +813,13 @@ $(document).ready(function () {
   renderAdminAccountsTable();
   renderAdminTransactionTables();
   updateDashboardStats();
+
+  /* Clear Storage */
+  $("#clearStorageBtn").click(function () {
+    showConfirm("danger", "Clear All Data", "This will wipe everything: customers, products, transactions, all sessions. The page will reload.", function () {
+      localStorage.clear();
+      location.reload();
+    });
+  });
 
 });

@@ -489,7 +489,7 @@ function renderOrderTables() {
       completedHtml += '<tr>'
         + '<td><span class="order-id">TXN-' + t.transactionId + '</span></td>'
         + '<td>' + generateItemsCollapsible(t.items, "completed-" + t.transactionId) + '</td>'
-        + '<td style="font-weight:600;color:var(--ink);">&#8369;' + t.total + '</td>'
+        + '<td style="font-weight:600;color:var(--ink);">₱' + t.total + '</td>'
         + '<td>' + (PAYMENT_LABELS[t.paymentMethod] || t.paymentMethod) + '</td>'
         + '<td><span class="status-badge ' + getStatusBadgeClass(t.status) + '">● ' + t.status + '</span></td>'
         + '</tr>';
@@ -858,6 +858,29 @@ $(document).ready(function () {
         }
       });
     }
+  });
+
+  /* Deactivate Account */
+  $("#deactivate-account-btn").click(function () {
+    let customer = getLoggedInCustomer();
+    let currentPass = $("#cp-current").val();
+
+    if (!currentPass || currentPass !== customer.getPassword()) {
+      $("#cp-current-error").text("Enter your current password above to deactivate your account.");
+      return;
+    }
+    $("#cp-current-error").text("");
+
+    showConfirm("danger", "Deactivate Account", "This will permanently delete your account. This cannot be undone.", function () {
+      let customerDB = getCustomerDatabase();
+      let updated = [];
+      for (let i = 0; i < customerDB.length; i++) {
+        if (customerDB[i].getUsername() !== customer.getUsername()) updated.push(customerDB[i]);
+      }
+      saveCustomerDatabase(updated);
+      saveLoggedInCustomer(null);
+      location.replace("../html/auth.html");
+    });
   });
 
   /* Checkout modal — close */

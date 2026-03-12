@@ -110,6 +110,21 @@
             </div>
           </section>
 
+          <section style="margin-bottom:48px;">
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;color:#DC2626;">Data Wiping Zone</h2>
+            <div class="card" style="border:1px solid #fca5a5;">
+              <div class="card-body" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+                <div>
+                  <div style="font-weight:600;font-size:.95rem;margin-bottom:4px;">Clear All Lumiere Data</div>
+                  <div style="font-size:.82rem;color:#aaa;">Wipes localStorage entirely: customers, products, transactions, sessions. Cannot be undone.</div>
+                </div>
+                <button type="button" class="btn btn-sm" id="clearStorageBtn" style="background:#DC2626;color:#fff;border:none;white-space:nowrap;">
+                  <i class="fa-solid fa-trash"></i> Clear Storage
+                </button>
+              </div>
+            </div>
+          </section>
+
           <!-- Admin Accounts Table -->
           <section style="margin-bottom:48px;">
             <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
@@ -241,7 +256,7 @@
           <!-- Completed / Closed Orders Table -->
           <section class="transaction-section">
             <h3>
-              <span class="section-icon">📋</span>
+              <span class="section-icon"><i class="fa-solid fa-check-to-slot"></i></span>
               Completed Orders
               <span style="font-size:.75rem;font-family:var(--font-body);background:#F0FBF4;color:var(--success);padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Closed</span>
             </h3>

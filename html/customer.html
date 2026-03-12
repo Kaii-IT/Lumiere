@@ -133,8 +133,8 @@
                   </div>
                   <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
                     <button type="button" class="btn btn-primary btn-block"
-                            onclick="editProfileMode(this)" id="customer-edit-profile-btn">
-                      Edit Profile
+                            onclick="editProfileMode(this)" id="customer-edit-profile-btn" value="Edit Profile">
+                      <i class="fa-solid fa-pen-to-square"></i>Edit Profile
                     </button>
                     <button type="button" class="btn btn-outline btn-block" id="logoutBtnProfile">
                       Logout
@@ -231,7 +231,10 @@
                         <p class="validation-msg error" id="cp-confirm-error"></p>
                       </div>
                     </div>
-                    <button type="button" id="change-password-btn" class="btn btn-primary">Update Password</button>
+                    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                      <button type="button" id="change-password-btn" class="btn btn-primary">Update Password</button>
+                      <button type="button" id="deactivate-account-btn" class="btn btn-outline" style="color:#DC2626;border-color:#DC2626;">Deactivate Account</button>
+                    </div>
                   </form>
                 </div>
               </div>
