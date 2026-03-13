@@ -66,12 +66,12 @@
 
       <main class="dashboard-content">
 
-        <!-- Admin: Dashboard -->
+        <!-- Dashboard View -->
         <section id="admin-dashboard-view" class="sub-section">
           <h1 class="page-title">Admin Dashboard</h1>
           <p class="page-subtitle">Welcome back. Here's what's happening with your store.</p>
 
-          <!-- Stats -->
+          <!-- Stats cards -->
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-icon"><i class="fa-solid fa-store" style="color:#A8834A;"></i></div>
@@ -95,7 +95,7 @@
             </div>
           </div>
 
-          <!-- Logged-in Admin Info -->
+          <!-- Logged-in admin info -->
           <section style="margin-bottom:32px;">
             <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;">Logged In As</h2>
             <div class="card">
@@ -133,7 +133,7 @@
             </div>
           </section>
 
-          <!-- Admin Accounts Table -->
+          <!-- Admin accounts table -->
           <section style="margin-bottom:48px;">
             <div
               style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
@@ -154,14 +154,14 @@
                   </tr>
                 </thead>
                 <tbody id="admin-accounts-tbody">
-                  <!-- populated by JS -->
+                  <!-- rows injected by JS -->
                 </tbody>
               </table>
             </div>
           </section>
         </section>
 
-        <!-- Admin: Product Catalogue -->
+        <!-- Products View -->
         <section id="admin-products-view" class="sub-section hidden">
           <div
             style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
@@ -200,12 +200,12 @@
           <div class="product-grid hidden" id="search-results-grid"></div>
         </section>
 
-        <!-- Admin: Transactions -->
+        <!-- Transactions View -->
         <section id="admin-transactions-view" class="sub-section hidden">
           <h1 class="page-title">Transaction Processing</h1>
           <p class="page-subtitle">Handle purchases, process returns, and manage payment status.</p>
 
-          <!-- Process Transaction Form -->
+          <!-- Process transaction form -->
           <section class="transaction-section">
             <h3><span class="section-icon"><i class="fa-solid fa-user-gear"></i></span> Process Transaction</h3>
             <form id="process-transaction-form" novalidate>
@@ -239,7 +239,7 @@
             </form>
           </section>
 
-          <!-- Processing / Ongoing Orders Table -->
+          <!-- Active orders table -->
           <section class="transaction-section">
             <h3>
               <span class="section-icon"><i class="fa-solid fa-spinner"></i></span>
@@ -265,7 +265,7 @@
             </div>
           </section>
 
-          <!-- Completed / Closed Orders Table -->
+          <!-- Completed orders table -->
           <section class="transaction-section">
             <h3>
               <span class="section-icon"><i class="fa-solid fa-check-to-slot"></i></span>
@@ -305,7 +305,7 @@
     </footer>
   </section>
 
-  <!-- ========== ADD ADMIN MODAL ========== -->
+  <!-- ADD ADMIN MODAL -->
   <section class="modal" id="add-admin-modal" style="display:none;">
     <button type="button" class="close-btn" id="closeAddAdminModal">✕ Close</button>
     <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Add Admin Account</h2>
@@ -359,7 +359,7 @@
     </div>
   </section>
 
-  <!-- ========== EDIT ADMIN MODAL ========== -->
+  <!-- EDIT ADMIN MODAL -->
   <section class="modal" id="edit-admin-modal" style="display:none;">
     <button type="button" class="close-btn" id="closeEditAdminModal">✕ Close</button>
     <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Edit Admin Account</h2>
@@ -400,7 +400,7 @@
     </div>
   </section>
 
-  <!-- ========== ADD PRODUCT MODAL ========== -->
+  <!-- ADD PRODUCT MODAL -->
   <section class="modal" id="add-product-modal" style="display:none;">
     <button type="button" class="close-btn" id="closeAddProductModal">✕ Close</button>
     <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Add New Product</h2>
@@ -459,7 +459,7 @@
     </div>
   </section>
 
-  <!-- ========== UPDATE PRODUCT MODAL ========== -->
+  <!-- UPDATE PRODUCT MODAL -->
   <section class="modal" id="admin-update-product-section" style="display:none;">
     <button type="button" class="close-btn" id="closeUpdateModal">✕ Close</button>
     <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Update Product</h2>
@@ -522,7 +522,7 @@
 
   <div class="modal-backdrop hidden"></div>
 
-  <!-- jQuery -->
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/shared.js"></script>
   <script src="../js/admin.js"></script>

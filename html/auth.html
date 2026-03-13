@@ -9,9 +9,11 @@
 </head>
 <body>
 
-  <!-- AUTHENTICATION PAGE -->
+  <!-- LOGIN PAGE -->
   <section id="auth-section" class="root-section">
     <main class="auth-page">
+
+      <!-- Left visual panel -->
       <aside class="auth-visual">
         <div class="auth-visual-bg"></div>
         <div class="auth-visual-grid"></div>
@@ -22,6 +24,7 @@
         </div>
       </aside>
 
+      <!-- Right login form -->
       <section class="auth-form-section">
         <div class="auth-form-box">
           <div class="auth-logo">LUMI<span>È</span>RE</div>
@@ -29,6 +32,7 @@
           <p class="auth-subtitle">Sign in to continue your journey.</p>
 
           <form id="login-form" novalidate>
+
             <div class="form-group">
               <label class="form-label" for="login-username">Username</label>
               <input type="text" id="login-username" name="username" class="form-control"
@@ -46,11 +50,12 @@
               <p class="validation-msg error" id="login-password-error"></p>
             </div>
 
-            <p style="margin-bottom:12px;" class="validation-msg error" id="account-login-error"></p>
+            <p class="validation-msg error" style="margin-bottom:12px;" id="account-login-error"></p>
 
             <div style="display:flex;gap:12px;flex-wrap:wrap;">
               <button type="button" class="btn btn-primary btn-lg" id="loginBtn">Login</button>
             </div>
+
           </form>
 
           <div class="auth-divider">or</div>
@@ -60,10 +65,10 @@
           </div>
         </div>
       </section>
+
     </main>
   </section>
 
-  <!-- jQuery (required by auth.js) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/shared.js"></script>
   <script src="../js/auth.js"></script>

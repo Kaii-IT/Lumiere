@@ -12,6 +12,8 @@
   <!-- CREATE ACCOUNT PAGE -->
   <section id="create-section" class="root-section">
     <main class="auth-page">
+
+      <!-- Left visual panel -->
       <aside class="auth-visual">
         <div class="auth-visual-bg"></div>
         <div class="auth-visual-grid"></div>
@@ -22,6 +24,7 @@
         </div>
       </aside>
 
+      <!-- Right registration form -->
       <section class="auth-form-section">
         <div class="auth-form-box" style="max-width:500px;">
           <div class="auth-logo">LUMI<span style="color:var(--accent)">È</span>RE</div>
@@ -29,6 +32,7 @@
           <p class="auth-subtitle">Tell us who you are to get started.</p>
 
           <form id="signup-form" novalidate>
+
             <div class="form-group">
               <label class="form-label" for="signup-fullname">Full Name</label>
               <input type="text" id="signup-fullname" name="fullname" class="form-control"
@@ -87,6 +91,7 @@
                 Create Account
               </button>
             </div>
+
           </form>
 
           <div class="auth-link-row">
@@ -95,10 +100,10 @@
           </div>
         </div>
       </section>
+
     </main>
   </section>
 
-  <!-- jQuery (required by createAccount.js) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="../js/shared.js"></script>
   <script src="../js/createAccount.js"></script>

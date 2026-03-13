@@ -1,12 +1,8 @@
-/* ===================================================
-   ESHOP — Main Stylesheet
-   Design: Refined luxury retail / editorial
-   Font pairing: Cormorant Garamond + DM Sans
-   =================================================== */
+/* style.css — Main Stylesheet */
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&display=swap');
 
-/* ─── CSS Variables ─────────────────────────────── */
+/* CSS Variables */
 :root {
   --cream: #FAF8F5;
   --warm-white: #FFFFFF;
@@ -35,7 +31,7 @@
   --font-body: 'DM Sans', system-ui, sans-serif;
 }
 
-/* ─── Reset & Base ──────────────────────────────── */
+/* Reset & Base */
 *,
 *::before,
 *::after {
@@ -84,7 +80,7 @@ ul {
   list-style: none;
 }
 
-/* ─── Typography ────────────────────────────────── */
+/* Typography */
 h1,
 h2,
 h3,
@@ -114,7 +110,7 @@ p {
   color: var(--ink-soft);
 }
 
-/* ─── Layout Utilities ──────────────────────────── */
+/* Layout Utilities */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -169,7 +165,7 @@ p {
   clip: rect(0, 0, 0, 0);
 }
 
-/* ─── Cards ─────────────────────────────────────── */
+/* Cards */
 .card {
   background: var(--warm-white);
   border: 1px solid var(--border);
@@ -197,7 +193,7 @@ p {
   color: var(--ink);
 }
 
-/* ─── Buttons ────────────────────────────────────── */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -299,7 +295,7 @@ p {
   border-radius: var(--radius-sm);
 }
 
-/* ─── Form Elements ─────────────────────────────── */
+/* Form Elements */
 .form-group {
   margin-bottom: 20px;
 }
@@ -355,7 +351,7 @@ p {
   gap: 16px;
 }
 
-/* ─── Validation Messages ───────────────────────── */
+/* Validation Messages */
 .validation-msg {
   font-size: 0.8rem;
   margin-top: 4px;
@@ -371,7 +367,7 @@ p {
   color: var(--success);
 }
 
-/* ─── Password Toggle Button ────────────────────── */
+/* Password Toggle Button */
 .password-toggle-btn {
   position: absolute;
   top: 50%;
@@ -397,7 +393,7 @@ p {
 }
 
 
-/* ─── Radio / Checkbox Custom ───────────────────── */
+/* Radio / Checkbox Custom */
 .radio-group,
 .check-group {
   display: flex;
@@ -429,7 +425,7 @@ p {
   accent-color: var(--accent);
 }
 
-/* ─── Navbar ─────────────────────────────────────── */
+/* Navbar */
 .navbar {
   position: sticky;
   top: 0;
@@ -541,7 +537,7 @@ p {
   transition: all var(--transition);
 }
 
-/* ─── Mobile Nav ────────────────────────────────── */
+/* Mobile Nav */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -567,7 +563,7 @@ p {
   display: block;
 }
 
-/* ─── Page Layout ───────────────────────────────── */
+/* Page Layout */
 .page-wrapper {
   display: flex;
   min-height: calc(100vh - var(--nav-h));
@@ -593,7 +589,7 @@ p {
   margin-bottom: 32px;
 }
 
-/* ─── Auth Pages ─────────────────────────────────── */
+/* Auth Pages */
 .auth-page {
   min-height: 100vh;
   background: var(--cream);
@@ -735,7 +731,7 @@ p {
   text-decoration: underline;
 }
 
-/* ─── Error / Alert Containers ──────────────────── */
+/* Error / Alert Containers */
 .alert {
   padding: 12px 16px;
   border-radius: var(--radius-sm);
@@ -777,7 +773,7 @@ p {
   margin-top: 1px;
 }
 
-/* ─── Toast Notifications ───────────────────────── */
+/* Toast Notifications */
 #toast-container {
   position: fixed;
   top: 24px;
@@ -845,7 +841,7 @@ p {
   }
 }
 
-/* ─── Search Bar ────────────────────────────────── */
+/* Search Bar */
 .search-bar {
   display: flex;
   align-items: center;
@@ -881,7 +877,7 @@ p {
   font-size: 1.1rem;
 }
 
-/* ─── Filter Bar ────────────────────────────────── */
+/* Filter Bar */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -930,14 +926,14 @@ p {
   border-color: var(--accent);
 }
 
-/* ─── Product Grid ──────────────────────────────── */
+/* Product Grid */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 24px;
 }
 
-/* ─── Product Card ──────────────────────────────── */
+/* Product Card */
 .product-card {
   background: var(--warm-white);
   border: 1px solid var(--border);
@@ -1101,7 +1097,7 @@ p {
   margin-right: 6px;
 }
 
-/* ─── Dashboard Layout ──────────────────────────── */
+/* Dashboard Layout */
 .dashboard-layout {
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
@@ -1175,7 +1171,7 @@ p {
   padding: 40px 36px;
 }
 
-/* ─── Stats Cards ───────────────────────────────── */
+/* Stats Cards */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1257,7 +1253,7 @@ p {
   color: var(--danger);
 }
 
-/* ─── Profile Page ──────────────────────────────── */
+/* Profile Page */
 .profile-layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -1373,7 +1369,7 @@ p {
   font-weight: 500;
 }
 
-/* ─── Cart Page ─────────────────────────────────── */
+/* Cart Page */
 .cart-layout {
   display: grid;
   grid-template-columns: 1fr 340px;
@@ -1558,7 +1554,7 @@ p {
   margin-left: 4px;
 }
 
-/* ─── Order History ─────────────────────────────── */
+/* Order History */
 .orders-table-wrap {
   overflow-x: auto;
   border-radius: var(--radius-md);
@@ -1641,7 +1637,7 @@ tr:hover td {
   color: #1D4ED8;
 }
 
-/* ─── Admin Product List ─────────────────────────── */
+/* Admin Product List */
 #admin-product-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -1703,7 +1699,7 @@ tr:hover td {
   gap: 8px;
 }
 
-/* ─── Checkout ──────────────────────────────────── */
+/* Checkout */
 .checkout-layout {
   display: grid;
   grid-template-columns: 1fr 360px;
@@ -1741,7 +1737,7 @@ tr:hover td {
   white-space: nowrap;
 }
 
-/* ─── Transaction Page ──────────────────────────── */
+/* Transaction Page */
 .transaction-section {
   background: var(--warm-white);
   border: 1px solid var(--border);
@@ -1785,7 +1781,7 @@ tr:hover td {
   color: var(--ink-soft);
 }
 
-/* ─── Footer ─────────────────────────────────────── */
+/* Footer */
 footer {
   background: var(--ink);
   color: rgba(255, 255, 255, .6);
@@ -1878,7 +1874,7 @@ footer {
   color: var(--accent);
 }
 
-/* ─── Scrollbar ─────────────────────────────────── */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -1897,7 +1893,7 @@ footer {
   background: var(--ink-light);
 }
 
-/* ─── Responsive ─────────────────────────────────── */
+/* Responsive */
 @media (max-width: 1100px) {
   .dashboard-layout {
     grid-template-columns: 200px 1fr;
@@ -2045,10 +2041,7 @@ footer {
   }
 }
 
-/* ===================================================
-   SPA Helpers (Simple show/hide sections)
-   Added for Midterm SPA container switching
-   =================================================== */
+/* Customer Layout */
 .root-section {
   min-height: 100vh;
 }
@@ -2061,7 +2054,7 @@ footer {
   display: none !important;
 }
 
-/* Simple customer layout with sidebar (same look as admin) */
+
 .customer-layout {
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr;
@@ -2082,7 +2075,7 @@ footer {
   }
 }
 
-/* generic modal container */
+/* Modal */
 .modal {
   position: fixed;
   top: 50%;
@@ -2099,7 +2092,7 @@ footer {
   padding: 32px;
 }
 
-/* backdrop used when showing modals */
+/* Modal backdrop */
 .modal-backdrop {
   position: fixed;
   inset: 0;
@@ -2107,7 +2100,7 @@ footer {
   z-index: 9998;
 }
 
-/* small‑screen tweaks */
+/* Small screen tweaks */
 @media (max-width: 768px) {
   .modal {
     width: 95vw;
@@ -2115,7 +2108,7 @@ footer {
   }
 }
 
-/* specific ID rules remain in case you need overrides */
+
 .close-btn {
   position: absolute;
   top: 20px;
