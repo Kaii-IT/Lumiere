@@ -214,8 +214,8 @@ const PAYMENT_LABELS  = { cod: "Cash on Delivery", gcash: "GCash", maya: "Maya",
 const PAYMENT_ICONS   = {
   cod:   '<i class="fa-solid fa-money-bill-wave" style="font-size:2.2rem;color:#2E9E5E;"></i>',
   card:  '<i class="fa-solid fa-credit-card"     style="font-size:2.2rem;color:#1D4ED8;"></i>',
-  gcash: '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/GCash_logo.svg/250px-GCash_logo.svg.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#007DFF;"></i>',
-  maya:  '<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Maya_%28payment_service%29_logo.svg/250px-Maya_%28payment_service%29_logo.svg.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#2ECC71;"></i>'
+  gcash: '<img src="https://brandlogos.net/wp-content/uploads/2024/01/gcash-logo_brandlogos.net_kiaqh.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#007DFF;"></i>',
+  maya:  '<img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/PayMaya_Logo.png" style="height:40px;object-fit:contain;" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'inline\'"><i class="fa-solid fa-mobile-screen-button" style="display:none;font-size:2.2rem;color:#2ECC71;"></i>'
 };
 
 function getCheckedCartItems() {
