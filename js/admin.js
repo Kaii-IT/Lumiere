@@ -9,7 +9,7 @@ function showView(viewId) {
   $(".sub-section").addClass("hidden");
   $("#" + viewId).removeClass("hidden").hide().fadeIn(400);
   $(".nav-link, .sidebar-nav a").removeClass("active");
-  $("a[onclick*=\"'\" + viewId + \"'\"]").addClass("active");
+  $("a[onclick*=\"'" + viewId + "'\"]").addClass("active");
   window.scrollTo(0, 0);
   return false;
 }
