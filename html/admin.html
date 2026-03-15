@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE – Admin</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+
+<body>
+  <!-- ADMIN PAGE -->
+  <section id="admin-section" class="root-section">
+    <nav class="navbar">
+      <div class="container navbar-inner">
+        <a href="#" class="navbar-brand" onclick="return showView('admin-dashboard-view');">
+          LUMI<span>È</span>RE
+          <span
+            style="font-size:.75rem;font-family:var(--font-body);color:var(--accent);letter-spacing:.1em;text-transform:uppercase;vertical-align:middle;">
+            Admin
+          </span>
+        </a>
+        <ul class="navbar-nav">
+          <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('admin-transactions-view');">Transactions</a></li>
+          <li><a href="#" class="nav-link" onclick="return showView('admin-products-view');">Products</a></li>
+        </ul>
+        <div class="navbar-actions">
+          <button type="button" class="btn btn-outline btn-sm" id="logoutBtn">Logout</button>
+        </div>
+      </div>
+    </nav>
+
+    <nav class="navbar mobile-nav">
+      <ul style="display:flex;justify-content:center;">
+        <li><a href="#" class="nav-link active" onclick="return showView('admin-dashboard-view');">Dashboard</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('admin-transactions-view');">Transactions</a></li>
+        <li><a href="#" class="nav-link" onclick="return showView('admin-products-view');">Products</a></li>
+      </ul>
+    </nav>
+
+    <div class="dashboard-layout">
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-label">Overview</div>
+          <nav class="sidebar-nav">
+            <a href="#" class="active" onclick="return showView('admin-dashboard-view');">
+              <span class="nav-icon"><i class="fa-solid fa-chart-bar"></i></span> Dashboard
+            </a>
+            <a href="#" onclick="return showView('admin-transactions-view');">
+              <span class="nav-icon"><i class="fa-solid fa-credit-card"></i></span> Transactions
+            </a>
+            <a href="#" onclick="return showView('admin-products-view');">
+              <span class="nav-icon"><i class="fa-solid fa-apple-whole"></i></span> Products
+            </a>
+          </nav>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-label">Account</div>
+          <nav class="sidebar-nav">
+            <a href="#" id="logoutBtnSidebar"><span class="nav-icon">→</span> Logout</a>
+          </nav>
+        </div>
+      </aside>
+
+      <main class="dashboard-content">
+
+        <!-- Dashboard View -->
+        <section id="admin-dashboard-view" class="sub-section">
+          <h1 class="page-title">Admin Dashboard</h1>
+          <p class="page-subtitle">Welcome back. Here's what's happening with your store.</p>
+
+          <!-- Stats cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon"><i class="fa-solid fa-store" style="color:#A8834A;"></i></div>
+              <div class="stat-value" id="total-products"></div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card blue">
+              <div class="stat-icon"><i class="fa-solid fa-cash-register" style="color:rgb(6,62,172);"></i></div>
+              <div class="stat-value" id="total-orders">0</div>
+              <div class="stat-label">Total Orders</div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon"><i class="fa-solid fa-coins" style="color:rgb(6,172,25);"></i></div>
+              <div class="stat-value" id="total-revenue">&#8369;0</div>
+              <div class="stat-label">Revenue</div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-icon"><i class="fa-solid fa-backward" style="color:rgb(172,6,6);"></i></div>
+              <div class="stat-value" id="pending-returns">0</div>
+              <div class="stat-label">Pending Returns</div>
+            </div>
+          </div>
+
+          <!-- Logged-in admin info -->
+          <section style="margin-bottom:32px;">
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;">Logged In As</h2>
+            <div class="card">
+              <div class="card-body" style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;">
+                <div
+                  style="width:52px;height:52px;border-radius:50%;background:var(--accent-pale);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--accent-dark);">
+                  <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                  <div style="font-weight:600;font-size:1rem;" id="loggedin-admin-name">—</div>
+                  <div style="font-size:.85rem;color:#888;" id="loggedin-admin-username">—</div>
+                  <div style="font-size:.8rem;color:#aaa;margin-top:2px;" id="loggedin-admin-email">—</div>
+                </div>
+                <div style="margin-left:auto;font-size:.82rem;color:#aaa;" id="loggedin-admin-contact">—</div>
+              </div>
+            </div>
+          </section>
+
+          <section style="margin-bottom:48px;">
+            <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:16px;color:#DC2626;">Data Wiping
+              Zone</h2>
+            <div class="card" style="border:1px solid #fca5a5;">
+              <div class="card-body"
+                style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+                <div>
+                  <div style="font-weight:600;font-size:.95rem;margin-bottom:4px;">Clear All Lumiere Data</div>
+                  <div style="font-size:.82rem;color:#aaa;">Wipes localStorage entirely: customers, products,
+                    transactions, sessions. Cannot be undone.</div>
+                </div>
+                <button type="button" class="btn btn-sm" id="clearStorageBtn"
+                  style="background:#DC2626;color:#fff;border:none;white-space:nowrap;">
+                  <i class="fa-solid fa-trash"></i> Clear Storage
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <!-- Admin accounts table -->
+          <section style="margin-bottom:48px;">
+            <div
+              style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px;">
+              <h2 style="font-family:var(--font-display);font-weight:300;margin:0;">Admin Accounts</h2>
+              <button type="button" class="btn btn-accent btn-sm" id="openAddAdminModalBtn">
+                <i class="fa-solid fa-plus"></i> Add Admin
+              </button>
+            </div>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact No.</th>
+                    <th>Username</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-accounts-tbody">
+                  <!-- rows injected by JS -->
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <!-- Products View -->
+        <section id="admin-products-view" class="sub-section hidden">
+          <div
+            style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px;">
+            <div>
+              <h1 class="page-title" style="margin-bottom:4px;">Product Catalogue</h1>
+              <p class="page-subtitle" style="margin:0;">Manage your products conveniently.</p>
+            </div>
+            <button type="button" class="btn btn-accent" id="openAddProductModalBtn">
+              <i class="fa-solid fa-plus"></i> Add Product
+            </button>
+          </div>
+
+          <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:20px;margin-top:20px;">
+            <div class="search-bar" style="flex:1;min-width:240px;">
+              <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+              <input type="search" id="admin-product-search-input" placeholder="Search products…" autocomplete="off" />
+              <button type="button" class="btn btn-sm btn-accent" id="search-btn"
+                style="border-radius:100px;padding:6px 18px;">Search</button>
+              <i class="fa-solid fa-arrow-rotate-left" id="reset-icon"></i>
+            </div>
+            <select id="admin-category-filter-dropdown" class="filter-select">
+              <option value="">All Categories</option>
+              <option value="electronics">Electronics</option>
+              <option value="clothing">Clothing</option>
+              <option value="groceries">Groceries</option>
+              <option value="health-beauty">Health &amp; Beauty</option>
+              <option value="home-living">Home &amp; Living</option>
+            </select>
+          </div>
+
+          <p style="margin:0 0 15px 15px;" id="search-result-message"></p>
+
+          <div id="admin-product-grid"
+            style="display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:24px;">
+          </div>
+          <div class="product-grid hidden" id="search-results-grid"></div>
+        </section>
+
+        <!-- Transactions View -->
+        <section id="admin-transactions-view" class="sub-section hidden">
+          <h1 class="page-title">Transaction Processing</h1>
+          <p class="page-subtitle">Handle purchases, process returns, and manage payment status.</p>
+
+          <!-- Process transaction form -->
+          <section class="transaction-section">
+            <h3><span class="section-icon"><i class="fa-solid fa-user-gear"></i></span> Process Transaction</h3>
+            <form id="process-transaction-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label class="form-label" for="txn-order-id-input">Transaction ID</label>
+                  <input type="text" id="txn-order-id-input" class="form-control" placeholder="e.g. 1, 2, 3" />
+                  <p class="validation-msg error" id="txn-order-id-error"></p>
+                </div>
+                <div class="form-group">
+                  <label class="form-label" for="txn-action-select">Action</label>
+                  <select id="txn-action-select" class="form-control">
+                    <option value="">— Select Action —</option>
+                    <option value="Processing">Confirm Payment → Processing</option>
+                    <option value="Shipped">Process Shipment → Shipped</option>
+                    <option value="Delivered">Mark as Delivered</option>
+                    <option value="Processing Return">Grant Return Request</option>
+                    <option value="Issuing Refund">Grant Refund Request</option>
+                    <option value="Returned">Finalise Return → Returned</option>
+                    <option value="Refunded">Finalise Refund → Refunded</option>
+                    <option value="Denied Return">Deny Return/Refund → Completed</option>
+                    <option value="Cancelled">Cancel Order</option>
+                  </select>
+                  <p class="validation-msg error" id="txn-action-error"></p>
+                </div>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <button type="button" class="btn btn-primary btn-lg" id="executeActionBtn">Execute Action</button>
+                <button type="reset" class="btn btn-ghost" id="clearTxnFormBtn">Clear</button>
+              </div>
+            </form>
+          </section>
+
+          <!-- Active orders table -->
+          <section class="transaction-section">
+            <h3>
+              <span class="section-icon"><i class="fa-solid fa-spinner"></i></span>
+              Processing Orders
+              <span
+                style="font-size:.75rem;font-family:var(--font-body);background:#EFF6FF;color:#1D4ED8;padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Active</span>
+            </h3>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Delivery</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-processing-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- Completed orders table -->
+          <section class="transaction-section">
+            <h3>
+              <span class="section-icon"><i class="fa-solid fa-check-to-slot"></i></span>
+              Completed Orders
+              <span
+                style="font-size:.75rem;font-family:var(--font-body);background:#F0FBF4;color:var(--success);padding:3px 10px;border-radius:100px;font-weight:500;margin-left:8px;">Closed</span>
+            </h3>
+            <div class="orders-table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total</th>
+                    <th>Payment</th>
+                    <th>Delivery</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-completed-tbody"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+      </main>
+    </div><!-- /dashboard-layout -->
+
+    <footer id="app-footer">
+      <div class="container">
+        <div class="footer-bottom">
+          <span>© 2026 LUMIÈRE. All rights reserved.</span>
+          <span style="color:rgba(255,255,255,.4);font-size:.8rem;">ITEW2 - Midterm Group Research Project</span>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ADD ADMIN MODAL -->
+  <section class="modal" id="add-admin-modal" style="display:none;">
+    <button type="button" class="close-btn" id="closeAddAdminModal">✕ Close</button>
+    <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Add Admin Account</h2>
+    <div class="card">
+      <div class="card-body">
+        <form id="add-admin-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="admin-name">Full Name</label>
+              <input type="text" id="admin-name" class="form-control" placeholder="e.g. Alexandra Moreau" />
+              <p class="validation-msg error" id="admin-name-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-email">Email Address</label>
+              <input type="email" id="admin-email" class="form-control" placeholder="admin@lumiere.com" />
+              <p class="validation-msg error" id="admin-email-error"></p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="admin-contact">Contact Number</label>
+              <input type="tel" id="admin-contact" class="form-control" placeholder="+63 912 345 6789" />
+              <p class="validation-msg error" id="admin-contact-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="admin-username">Username</label>
+              <input type="text" id="admin-username" class="form-control" placeholder="Choose a username" />
+              <p class="validation-msg error" id="admin-username-error"></p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="position:relative;">
+              <label class="form-label" for="admin-password">Password</label>
+              <input type="password" id="admin-password" class="form-control" placeholder="Min. 8 characters" />
+              <button type="button" class="password-toggle-btn">Show</button>
+              <p class="validation-msg error" id="admin-password-error"></p>
+            </div>
+            <div class="form-group" style="position:relative;">
+              <label class="form-label" for="admin-confirm-password">Confirm Password</label>
+              <input type="password" id="admin-confirm-password" class="form-control" placeholder="Repeat password" />
+              <button type="button" class="password-toggle-btn">Show</button>
+              <p class="validation-msg error" id="admin-confirm-password-error"></p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+            <button type="button" class="btn btn-accent btn-lg" id="addAdminBtn">Add Admin</button>
+            <button type="reset" class="btn btn-ghost" id="clearAddAdminForm">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDIT ADMIN MODAL -->
+  <section class="modal" id="edit-admin-modal" style="display:none;">
+    <button type="button" class="close-btn" id="closeEditAdminModal">✕ Close</button>
+    <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Edit Admin Account</h2>
+    <div class="card">
+      <div class="card-body">
+        <form id="edit-admin-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="edit-admin-name">Full Name</label>
+              <input type="text" id="edit-admin-name" class="form-control" />
+              <p class="validation-msg error" id="edit-admin-name-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-admin-email">Email Address</label>
+              <input type="email" id="edit-admin-email" class="form-control" />
+              <p class="validation-msg error" id="edit-admin-email-error"></p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="edit-admin-contact">Contact Number</label>
+              <input type="tel" id="edit-admin-contact" class="form-control" />
+              <p class="validation-msg error" id="edit-admin-contact-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="edit-admin-username">Username</label>
+              <input type="text" id="edit-admin-username" class="form-control" />
+              <p class="validation-msg error" id="edit-admin-username-error"></p>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+            <button type="button" class="btn btn-accent btn-lg" id="saveEditAdminBtn" data-username="">Save
+              Changes</button>
+            <button type="reset" class="btn btn-ghost">Clear</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADD PRODUCT MODAL -->
+  <section class="modal" id="add-product-modal" style="display:none;">
+    <button type="button" class="close-btn" id="closeAddProductModal">✕ Close</button>
+    <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Add New Product</h2>
+    <div class="card">
+      <div class="card-body">
+        <form id="add-product-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="product-category">Category</label>
+              <select id="product-category" class="form-control">
+                <option value="">— Select Category —</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="groceries">Groceries</option>
+                <option value="health-beauty">Health &amp; Beauty</option>
+                <option value="home-living">Home &amp; Living</option>
+              </select>
+              <p class="validation-msg error" id="product-category-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="product-name">Product Name</label>
+              <input type="text" id="product-name" class="form-control" placeholder="e.g. Wireless Headphones" />
+              <p class="validation-msg error" id="product-name-error"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="product-description">Description</label>
+            <textarea id="product-description" class="form-control" placeholder="Describe the product…"
+              rows="3"></textarea>
+            <p class="validation-msg error" id="product-description-error"></p>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="product-quantity">Quantity in Stock</label>
+              <input type="number" id="product-quantity" class="form-control" placeholder="0" min="0" step="1" />
+              <p class="validation-msg error" id="product-quantity-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="product-price">Price (₱)</label>
+              <input type="number" id="product-price" class="form-control" placeholder="0.00" min="0" step="0.01" />
+              <p class="validation-msg error" id="product-price-error"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="product-image-url">Image Hosting URL</label>
+            <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
+            <input type="text" id="product-image-url" class="form-control"
+              placeholder="e.g. https://example.com/image.jpg" />
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-accent btn-lg" id="addProductBtn">＋ Add Product</button>
+            <button type="reset" class="btn btn-ghost" id="clearAddProductForm">Clear Form</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPDATE PRODUCT MODAL -->
+  <section class="modal" id="admin-update-product-section" style="display:none;">
+    <button type="button" class="close-btn" id="closeUpdateModal">✕ Close</button>
+    <h2 style="font-family:var(--font-display);font-weight:300;margin-bottom:24px;">Update Product</h2>
+    <div class="card">
+      <div class="card-body">
+        <form id="update-product-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="update-product-category">Category</label>
+              <select id="update-product-category" class="form-control">
+                <option value="">— Select Category —</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="groceries">Groceries</option>
+                <option value="health-beauty">Health &amp; Beauty</option>
+                <option value="home-living">Home &amp; Living</option>
+              </select>
+              <p class="validation-msg error" id="update-product-category-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="update-product-name">Product Name</label>
+              <input type="text" id="update-product-name" class="form-control" placeholder="e.g. Wireless Headphones" />
+              <p class="validation-msg error" id="update-product-name-error"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="update-product-description">Description</label>
+            <textarea id="update-product-description" class="form-control" placeholder="Describe the product…"
+              rows="3"></textarea>
+            <p class="validation-msg error" id="update-product-description-error"></p>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="update-product-quantity">Quantity in Stock</label>
+              <input type="number" id="update-product-quantity" class="form-control" placeholder="0" min="0" step="1" />
+              <p class="validation-msg error" id="update-product-quantity-error"></p>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="update-product-price">Price (₱)</label>
+              <input type="number" id="update-product-price" class="form-control" placeholder="0.00" min="0"
+                step="0.01" />
+              <p class="validation-msg error" id="update-product-price-error"></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="update-product-image-url">Image Hosting URL</label>
+            <p class="form-hint">Optional – A placeholder image will be used if left empty or invalid.</p>
+            <input type="text" id="update-product-image-url" class="form-control"
+              placeholder="e.g. https://example.com/image.jpg" />
+          </div>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+            <button type="button" class="btn btn-accent btn-lg" id="updateProductBtn" data-id="">＋ Update
+              Product</button>
+            <button type="reset" class="btn btn-ghost">Clear Form</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <div class="modal-backdrop hidden"></div>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="../js/shared.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUMIÈRE</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #111;
+      font-family: Georgia, serif;
+      padding: 40px 16px;
+    }
+
+    p {
+      color: #444;
+      font-size: .75rem;
+      letter-spacing: .1em;
+      margin-bottom: 8px;
+    }
+
+    button {
+      width: 200px;
+      padding: 12px;
+      background: #1a1a1a;
+      color: #ccc;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: .9rem;
+      cursor: pointer;
+    }
+
+    button:hover {
+      border-color: #b08d6a;
+      color: #fff;
+    }
+
+    .info-card {
+      width: 90vw;
+      max-width: 480px;
+      background: #161616;
+      border: 1px solid #2a2a2a;
+      border-radius: 12px;
+      padding: 28px 28px;
+      margin-top: 20px;
+      color: #aaa;
+      font-size: .82rem;
+      line-height: 1.75;
+    }
+
+    .info-card h3 {
+      font-size: 0.85rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #555;
+      margin: 0 0 14px 0;
+      font-family: monospace;
+    }
+
+    .info-card p {
+      color: #888;
+      font-size: 1rem;
+      letter-spacing: 0;
+      margin: 0 0 14px 0;
+      line-height: 1.75;
+    }
+
+    .info-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .code-block {
+      background: #0e0e0e;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-family: monospace;
+      font-size: .75rem;
+      color: #6ee7b7;
+      margin: 14px 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .tag {
+      display: inline-block;
+      font-family: monospace;
+      font-size: .68rem;
+      background: #1f1f1f;
+      color: #b08d6a;
+      border: 1px solid #2a2a2a;
+      border-radius: 4px;
+      padding: 2px 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <p>LUMIÈRE · DEBUG</p>
+  <button onclick="goTo('customer')">Customer</button>
+  <button onclick="goTo('admin')">Admin</button>
+  <button onclick="goTo('auth')">Auth</button>
+
+  <div class="info-card">
+    <p>
+      <strong>Note:</strong> The system comes pre-loaded with dummy data including 10 products, 4 sample
+      transactions, and test accounts. For customers, you can log in using <span class="tag">maria_santos</span> or
+      <span class="tag">juan_dela_cruz</span> with the password <span class="tag">customer123</span>. For admin access,
+      use <span class="tag">lumiereAdmin</span> with the password <span class="tag">admin123</span>, or <span
+        class="tag">store_manager</span> with <span class="tag">manager123</span>.
+    </p>
+
+    <hr style="margin-bottom: 20px;">
+
+    <h3>About This Debug Router</h3>
+
+    <p style="margin-top: 20px;">
+      This page exists purely for testing. Its main purpose is to let you open the customer view and the admin view at
+      the same time in separate tabs, so you can interact with both sides of the system simultaneously without having to
+      log out and log back in between them.
+    </p>
+
+    <p>
+      Each button checks your current localStorage session before deciding where to send you. If you are already logged
+      in as a customer it will take you straight to the customer page. If not, it will send you to the login page first.
+      The same logic applies to the admin button.
+    </p>
+
+    <p>
+      In a real production setup, the auth page would include this session check so that a user who is already logged in
+      never sees the login screen again. It would look like this:
+    </p>
+
+    <div class="code-block">
+      if (getIsAdminLoggedIn()) {
+      location.replace("../html/admin.html");
+
+      } else if (getLoggedInCustomer()) {
+      location.replace("../html/customer.html");
+      }
+    </div>
+
+    <p>
+      This block was intentionally left out during development because having it active makes testing harder. If it were
+      in place, every time a tester visits the auth page while already logged in, they would get redirected away
+      immediately with no way to switch accounts without manually clearing localStorage.
+    </p>
+
+    <p>
+      When the system is ready for a real deployment, that block should be added back into
+      <span class="tag">auth.js</span> to give users
+      the proper stay-logged-in experience.
+    </p>
+  </div>
+
+  <script>
+    function goTo(target) {
+      var base = "./html/";
+      var customer = null, isAdmin = false;
+      try {
+        customer = JSON.parse(localStorage.getItem("loggedInCustomer"));
+        isAdmin = JSON.parse(localStorage.getItem("isAdminLoggedIn"));
+      } catch (e) { console.error("localStorage parse error:", e); }
+
+      var url = base + (
+        target === "customer" ? (customer ? "customer.html" : "auth.html") :
+          target === "admin" ? (isAdmin ? "admin.html" : "auth.html") :
+            "auth.html"
+      );
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+
+</html>
